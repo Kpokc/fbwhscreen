@@ -1,0 +1,40 @@
+.columnHeader{
+    text-align: center;
+    border-bottom: 1px solid;
+}
+
+.smallFont {
+    font-size: 14px;
+}
+
+.toUpperCae {
+    text-transform: uppercase;
+}
+
+.toCapitalLetter {
+    text-transform: capitalize;
+}
+
+.right {
+    float: right
+}
+
+.font14px {
+    font-size: 14px;
+}
+
+.font18px {
+    font-size: 18px;
+}
+
+.card {
+    min-width: 18rem;
+    max-width: 38rem;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    transition: ease-in-out 0.3s;
+    box-shadow: 0px 1px 5px 1px #4c9be8;
+    cursor: pointer;
+}

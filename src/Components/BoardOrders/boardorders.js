@@ -12,7 +12,7 @@ export const BoardOrders = ({ordersList}) => {
         ordersList.forEach((item) => {
             titleArray.includes(item[4], titleArray.push(item[4]));
         });
-        let sortedTitles = [... new Set(titleArray)];
+        const sortedTitles = [... new Set(titleArray)];
 
         return sortedTitles;
     }
@@ -22,10 +22,10 @@ export const BoardOrders = ({ordersList}) => {
         return (
             titleList.map(el => {
                 if (el === jobTitle) {
-                    let getAllJobs = getOrdersIntoColumn(ordersList, jobTitle);
+                    const getAllJobs = getOrdersIntoColumn(ordersList, jobTitle);
                     return (    
                         <div className="col" key={jobTitle}>
-                            <h4>{jobTitle}</h4>
+                            <h4 className="columnHeader toUpperCae mt-3">{jobTitle}<p className="m-0 smallFont">|</p></h4>
                             {getAllJobs}
                         </div>
                     );
@@ -43,11 +43,11 @@ export const BoardOrders = ({ordersList}) => {
                 if (el[4] === jobTitle) {
                     return (
                         <div className="card border-primary mb-3 mt-3" key={el[0]}>
-                            <div className="card-header">{el[4]}:{el[2]} UID:({el[0]})</div>
+                            <div className="card-header toUpperCae">{el[4]}: {el[2]} <span className="right">ID: {el[0]}</span></div>
                             <div className="card-body">
-                                <h5 className="card-title">{el[7]}</h5>
-                                <span className="card-text pt-1">placed: {el[5]}</span>
-                                <p className="card-text pt-1">{el[3]}</p>
+                                <h5 className="card-title toCapitalLetter pt-0">{el[7]}</h5>
+                                <span className="card-text pt-1 toCapitalLetter font14px">placed: {el[5]}</span>
+                                <p className="card-text pt-1 font18px">{el[3]}</p>
                             </div>
                         </div>
                     );
@@ -61,12 +61,12 @@ export const BoardOrders = ({ordersList}) => {
 
         document.body.classList.remove('bodyLoader');
 
-        let picks = checkIfOrderInList(getTitles(titleArray), 'pick');
-        let receipt = checkIfOrderInList(getTitles(titleArray), 'receipt');
-        let collection = checkIfOrderInList(getTitles(titleArray), 'collection');
-        let delivery = checkIfOrderInList(getTitles(titleArray), 'delivery');
-        let transfer = checkIfOrderInList(getTitles(titleArray), 'transfer');
-        let other = checkIfOrderInList(getTitles(titleArray), 'other');
+        const picks = checkIfOrderInList(getTitles(titleArray), 'pick');
+        const receipt = checkIfOrderInList(getTitles(titleArray), 'receipt');
+        const collection = checkIfOrderInList(getTitles(titleArray), 'collection');
+        const delivery = checkIfOrderInList(getTitles(titleArray), 'delivery');
+        const transfer = checkIfOrderInList(getTitles(titleArray), 'transfer');
+        const other = checkIfOrderInList(getTitles(titleArray), 'other');
 
         return (
             <>
