@@ -42,10 +42,10 @@ export default class Board extends Component {
         });
     };
 
-    async deleteDocument() {
+    async deleteDocument(el) {
         try {
-            await deleteDoc(doc(db, "orders", "TSVdBwhUUROrrIhppdIi"));
-            console.log("Document with ID was deleted: ", "TSVdBwhUUROrrIhppdIi");
+            await deleteDoc(doc(db, "orders", el));
+            console.log("Document with ID was deleted: ", el);
         }
         catch (error){
             console.error(error);
@@ -88,7 +88,9 @@ export default class Board extends Component {
 
         return (
             <div className='row'>
-                <BoardOrders ordersList={ordersList}/>
+                <BoardOrders 
+                    ordersList={ordersList}
+                    deleteCard={this.deleteDocument}/>
                 <button onClick={this.addDocument}>Add</button>
             </div>
         );

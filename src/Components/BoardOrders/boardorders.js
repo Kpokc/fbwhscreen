@@ -3,7 +3,7 @@ import Loader from "../Loader";
 
 import './boardorders.css'
 
-export const BoardOrders = ({ordersList}) => {
+export const BoardOrders = ({ordersList, deleteCard}) => {
 
     const titleArray = [];
 
@@ -47,13 +47,16 @@ export const BoardOrders = ({ordersList}) => {
                                 {el[4]}: {el[2]} 
                                 <span className="right">
                                     ID: {el[0]}
-                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="#">Done</a>
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Delete</a>
+                                    <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <div className="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a className="dropdown-item" href="#">Done</a>
+                                    {/* Edit Card */}
+                                    <a className="dropdown-item" href="#">Edit</a>
+                                    {/* Delete Card */}
+                                    <a className="dropdown-item" href="#" 
+                                        onClick={() => deleteCard(el[0])}>Delete</a>
                                     </div>
                                 </div>
                             </div>
@@ -66,10 +69,7 @@ export const BoardOrders = ({ordersList}) => {
                                 <span className="card-text pt-1 toCapitalLetter font14px">placed: {el[5]}</span>
                                 <p className="card-text pt-1 font18px">{el[3]}</p>
                             </div>
-
-                            
                         </div>
-                        
                     );
                 };
             })
