@@ -43,13 +43,33 @@ export const BoardOrders = ({ordersList}) => {
                 if (el[4] === jobTitle) {
                     return (
                         <div className="card border-primary mb-3 mt-3" key={el[0]}>
-                            <div className="card-header toUpperCae">{el[4]}: {el[2]} <span className="right">ID: {el[0]}</span></div>
+                            <div className="card-header toUpperCae">
+                                {el[4]}: {el[2]} 
+                                <span className="right">
+                                    ID: {el[0]}
+                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop2" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item" href="#">Done</a>
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                                </span>
+                                
+                            </div>
+                            
                             <div className="card-body">
                                 <h5 className="card-title toCapitalLetter pt-0">{el[7]}</h5>
                                 <span className="card-text pt-1 toCapitalLetter font14px">placed: {el[5]}</span>
                                 <p className="card-text pt-1 font18px">{el[3]}</p>
                             </div>
+
+                            
                         </div>
+                        
                     );
                 };
             })
