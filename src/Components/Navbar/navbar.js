@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import ModalAdd from "../ModalAdd";
+import ModalDelete from "../ModalDelete";
+import ModalUpdate from "../ModalUpdate";
 
 import './navbar.css'
 
@@ -6,11 +9,11 @@ export default class NavBar extends Component {
 
     state = {
         buttons: [
-          { id: 1, button: 'Add', url: "/Add" },
-          { id: 2, button: 'Delete', url: "/Delete" },
-          { id: 3, button: 'Update', url: "/Update" },
-          { id: 4, button: 'Log Out', url: "/Log Out" },
-          { id: 5, button: 'Radio', url: "/Radio" },
+          { id: 1, button: <ModalAdd />, url: "#" },
+          { id: 2, button: <ModalDelete />, url: "#" },
+          { id: 3, button: <ModalUpdate />, url: "#" },
+          { id: 4, button: 'Log Out', url: "#" },
+          { id: 5, button: 'Radio', url: "#" },
         ],
         currentDateTime: null
       };
@@ -43,12 +46,14 @@ export default class NavBar extends Component {
             return (
                 <li className="nav-item"
                     key={id}>
-                    <a className="nav-link" href={url}>{button}</a>
+                    <a className="nav-link" 
+                        href={url}>{button}</a>
+                        
                 </li>
             );
         });
 
-        
+        console.log(this.state.isOpen)
         return (
 
           <div>

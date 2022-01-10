@@ -1,5 +1,6 @@
 import NavBar from '../Navbar';
 import Board from '../Board/board';
+import ModalAdd from '../ModalAdd';
 import './App.css';
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <div className="container-fluid">
       <NavBar />
       <Board />
+      
     </div>
   );
 }
