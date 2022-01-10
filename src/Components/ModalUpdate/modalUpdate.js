@@ -15,9 +15,9 @@ export default class ModaUpdate extends Component {
       <>
         <div
           className="d-flex align-items-center justify-content-center">
-          <a variant="primary" onClick={this.openModal}>
+          <button variant="primary" onClick={this.openModal}>
             Update
-          </a>
+          </button>
         </div>
         <Modal show={this.state.isOpen} onHide={this.closeModal}>
           <Modal.Header closeButton>

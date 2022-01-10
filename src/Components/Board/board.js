@@ -7,7 +7,8 @@ import BoardOrders from '../BoardOrders';
 export default class Board extends Component {
 
     state = {
-        ordersList: []
+        ordersList: [],
+        idList: []
     };
 
     componentDidMount(){
@@ -43,24 +44,39 @@ export default class Board extends Component {
     };
 
     async deleteDocument(el) {
-        try {
-            await deleteDoc(doc(db, "orders", el));
-            console.log("Document with ID was deleted: ", el);
+
+        const querySnapshot = await getDocs(collection(db, "orders"));
+        let ordersId = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            ordersId.push(doc.id);
+        });
+
+        console.log(ordersId.includes(el.toString()), el)
+
+        if (ordersId.includes(el.toString())) {
+            try {
+                await deleteDoc(doc(db, "orders", el));
+                console.log("Document with ID was deleted: ", el);
+            }
+            catch (error){
+                console.error(error);
+            };
+        } else {
+            alert("Wrong")
         }
-        catch (error){
-            console.error(error);
-        };
     };
 
     setListener = async () => {
+        
         db.collection("orders")
             .onSnapshot((querySnapshot) => {
-                var cities = [];
+                let orders = [];
                 querySnapshot.forEach((doc) => {
-                    cities.push(doc.data().name);
+                    orders.push(doc.id);
                 });
                 this.getOrders();
-                console.log("Current cities in CA: ", cities.join(", "));
+                console.log("Current orders in DB: ", orders.join(", "));
             });
     };
 
@@ -82,7 +98,25 @@ export default class Board extends Component {
         });
     };
 
+
+    // checkId = (el) => {
+    //     let q = getDocs(collection(db, "orders"));
+    //     let res = [];
+    //     q.then(doc => {
+    //        doc.docs.map(el => res.push(el.id));
+    //     })
+
+    //     //console.log(res)
+
+    //     return this.setState({
+    //         idList: res
+    //     });
+    // }
+
     render (){
+        
+        // console.log(this.state.idList)
+        // console.log(this.state.ordersList)
 
         const {ordersList} = this.state;
 
