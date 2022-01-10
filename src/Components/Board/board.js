@@ -52,7 +52,7 @@ export default class Board extends Component {
             ordersId.push(doc.id);
         });
 
-        console.log(ordersId.includes(el.toString()), el)
+        //console.log(ordersId.includes(el.toString()), el)
 
         if (ordersId.includes(el.toString())) {
             try {
@@ -63,6 +63,7 @@ export default class Board extends Component {
                 console.error(error);
             };
         } else {
+            // add some notification
             alert("Wrong")
         }
     };
@@ -97,21 +98,6 @@ export default class Board extends Component {
             ordersList: orders
         });
     };
-
-
-    // checkId = (el) => {
-    //     let q = getDocs(collection(db, "orders"));
-    //     let res = [];
-    //     q.then(doc => {
-    //        doc.docs.map(el => res.push(el.id));
-    //     })
-
-    //     //console.log(res)
-
-    //     return this.setState({
-    //         idList: res
-    //     });
-    // }
 
     render (){
         
