@@ -34,7 +34,7 @@ export default class Board extends Component {
         await setDoc(doc(db, "orders", id), {
             jobid: 123,
             jobtext: "Transfer 2 pallets from Advant",
-            jobtype: "pick",
+            jobtype: "collection",
             time: date.toLocaleString('en-GB').toString(),
             vendor: "Neuravi",
             urgent: false,
