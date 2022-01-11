@@ -17,7 +17,6 @@ export default class Board extends Component {
     };
 
     componentWillUnmount() {
-
         // UnSet listener
         let unsubscribe = db.collection("orders")
             .onSnapshot(() => {
@@ -43,21 +42,14 @@ export default class Board extends Component {
         });
     };
 
-    async deleteDocument(el) {
+    async deleteDocument(id) {
 
-        const querySnapshot = await getDocs(collection(db, "orders"));
-        let ordersId = []
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            ordersId.push(doc.id);
-        });
+        let ordersId = await this.getOrdersId();
 
-        //console.log(ordersId.includes(el.toString()), el)
-
-        if (ordersId.includes(el.toString())) {
+        if (ordersId.includes(id)) {
             try {
-                await deleteDoc(doc(db, "orders", el));
-                console.log("Document with ID was deleted: ", el);
+                await deleteDoc(doc(db, "orders", id));
+                console.log(`Document with ID ${id} was deleted`);
             }
             catch (error){
                 console.error(error);
@@ -68,6 +60,17 @@ export default class Board extends Component {
         }
     };
 
+    async getOrdersId(){
+        const querySnapshot = await getDocs(collection(db, "orders"));
+        let ordersId = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            ordersId.push(doc.id);
+        });
+
+        return ordersId;
+    }
+
     setListener = async () => {
         
         db.collection("orders")
@@ -77,7 +80,7 @@ export default class Board extends Component {
                     orders.push(doc.id);
                 });
                 this.getOrders();
-                console.log("Current orders in DB: ", orders.join(", "));
+                //console.log("Current orders in DB: ", orders.join(", "));
             });
     };
 
@@ -100,9 +103,6 @@ export default class Board extends Component {
     };
 
     render (){
-        
-        // console.log(this.state.idList)
-        // console.log(this.state.ordersList)
 
         const {ordersList} = this.state;
 
