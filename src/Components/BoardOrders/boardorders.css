@@ -19,6 +19,10 @@
     float: right
 }
 
+.marginLeft {
+  margin-left: 10px!important;
+}
+
 .font14px {
     font-size: 14px;
 }

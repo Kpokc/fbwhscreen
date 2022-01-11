@@ -26,7 +26,7 @@ export default class Board extends Component {
         unsubscribe();
      }
 
-    async addDocument() {
+    async addDocument(data) {
 
         const querySnapshot = await getDocs(collection(db, "orders"));
         let ordersId = []
@@ -36,21 +36,12 @@ export default class Board extends Component {
         });
 
         let id = (Math.floor(100000 + Math.random() * 900000)).toString();
-        let date = new Date();
         let notAdded = true;
 
         while (notAdded){
 
             if (!ordersId.includes(id)){
-                await setDoc(doc(db, "orders", id), {
-                    jobid: 123,
-                    jobtext: "Transfer 2 pallets from Advant",
-                    jobtype: "transfer",
-                    time: date.toLocaleString('en-GB').toString(),
-                    vendor: "Neuravi",
-                    urgent: false,
-                    done: false,
-                });
+                await setDoc(doc(db, "orders", id), data);
                 console.log(`Document with ID ${id} was added!`)
                 notAdded = false;
             }
@@ -122,7 +113,6 @@ export default class Board extends Component {
                 <BoardOrders 
                     ordersList={ordersList}
                     deleteCard={this.deleteDocument}/>
-                <button onClick={this.addDocument}>Add</button>
             </div>
         );
     };

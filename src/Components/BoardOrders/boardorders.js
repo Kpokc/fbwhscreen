@@ -47,7 +47,7 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
                                 {el[4]}: {el[2]} 
                                 <span className="right">
                                     ID: {el[0]}
-                                    <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                    <div className="btn-group marginLeft" role="group" aria-label="Button group with nested dropdown">
                                 <div className="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                     <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
