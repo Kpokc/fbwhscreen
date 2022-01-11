@@ -44,10 +44,10 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
                     return (
                         <div className="card border-primary mb-3 mt-3" key={el[0]}>
                             <div className="card-header toUpperCae">
-                                {el[4]}: {el[2]} 
+                                <span className="pickId">{el[4]}: {el[2]} </span>
                                 <span className="right">
                                     ID: {el[0]}
-                                    <div className="btn-group marginLeft" role="group" aria-label="Button group with nested dropdown">
+                                    <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
                                 <div className="btn-group" role="group">
                                     <button id="btnGroupDrop1" type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                     <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">

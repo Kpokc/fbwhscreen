@@ -117,18 +117,17 @@ export default class ModalAdd extends Component {
                 <Form.Control as="textarea" rows={3} placeholder="Enter Your Message"/>
               </Form.Group>
 
-              <Button variant="primary" onClick={this.closeModal} className="btn btn-secondary toRigth">
-                  Close
-              </Button>
-              <Button variant="primary" type="submit" className="btn btn-secondary toRigth mx-2">
-                Submit
-              </Button>
-
+              <Modal.Footer>
+                <Button variant="secondary" onClick={this.closeModal} className="btn btn-secondary toRigth">
+                    Close
+                </Button>
+                <Button variant="secondary" type="submit" className="btn btn-secondary toRigth mx-2">
+                  Submit
+                </Button>
+              </Modal.Footer>
             </Form>
           </Modal.Body>
-          <Modal.Footer>
-            
-          </Modal.Footer>
+          
         </Modal>
       </>
     );

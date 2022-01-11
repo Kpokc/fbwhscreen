@@ -36,6 +36,10 @@
     max-width: 38rem;
 }
 
+.pickId {
+  line-height: 34px;
+}
+
 .card:hover {
     transform: translateY(-2px);
     transition: ease-in-out 0.3s;
