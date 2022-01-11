@@ -28,28 +28,50 @@ export default class Board extends Component {
 
     async addDocument() {
 
+        const querySnapshot = await getDocs(collection(db, "orders"));
+        let ordersId = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            ordersId.push(doc.id);
+        });
+
         let id = (Math.floor(100000 + Math.random() * 900000)).toString();
         let date = new Date();
+        let notAdded = true;
 
-        await setDoc(doc(db, "orders", id), {
-            jobid: 123,
-            jobtext: "Transfer 2 pallets from Advant",
-            jobtype: "collection",
-            time: date.toLocaleString('en-GB').toString(),
-            vendor: "Neuravi",
-            urgent: false,
-            done: false,
-        });
+        while (notAdded){
+
+            if (!ordersId.includes(id)){
+                await setDoc(doc(db, "orders", id), {
+                    jobid: 123,
+                    jobtext: "Transfer 2 pallets from Advant",
+                    jobtype: "transfer",
+                    time: date.toLocaleString('en-GB').toString(),
+                    vendor: "Neuravi",
+                    urgent: false,
+                    done: false,
+                });
+                console.log(`Document with ID ${id} was added!`)
+                notAdded = false;
+            }
+
+            id = (Math.floor(100000 + Math.random() * 900000)).toString();
+        }
     };
 
     async deleteDocument(id) {
 
-        let ordersId = await this.getOrdersId();
+        const querySnapshot = await getDocs(collection(db, "orders"));
+        let ordersId = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            ordersId.push(doc.id);
+        });
 
         if (ordersId.includes(id)) {
             try {
                 await deleteDoc(doc(db, "orders", id));
-                console.log(`Document with ID ${id} was deleted`);
+                console.log(`Document with ID ${id} was deleted!`);
             }
             catch (error){
                 console.error(error);
@@ -59,17 +81,6 @@ export default class Board extends Component {
             alert("Wrong")
         }
     };
-
-    async getOrdersId(){
-        const querySnapshot = await getDocs(collection(db, "orders"));
-        let ordersId = []
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            ordersId.push(doc.id);
-        });
-
-        return ordersId;
-    }
 
     setListener = async () => {
         
