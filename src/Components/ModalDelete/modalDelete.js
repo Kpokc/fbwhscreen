@@ -85,7 +85,7 @@ export default class ModalDelete extends Component {
                             placeholder="Enter ID"
                             />
                     <div className={this.state.isError === true ? "d-block" : "d-none"}>
-                        <i class="fal fa-exclamation-triangle fa-9x error-ic"></i>
+                        <i className="fal fa-exclamation-triangle fa-9x error-ic"></i>
                         <p className={this.state.isError === true ? "d-block error-text mt-2" : "d-none"}>Error, incorrect ID!</p>
                     </div>
                     

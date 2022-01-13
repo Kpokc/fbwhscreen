@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { db } from '../Source/source'
-import { collection, getDocs, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import BoardOrders from '../BoardOrders';
 
 
@@ -26,7 +26,7 @@ export default class Board extends Component {
         unsubscribe();
      }
 
-    async addDocument(data) {
+     async addDocument(data) {
 
         const querySnapshot = await getDocs(collection(db, "orders"));
         let ordersId = []
@@ -48,6 +48,16 @@ export default class Board extends Component {
 
             id = (Math.floor(100000 + Math.random() * 900000)).toString();
         }
+    };
+
+    async deleteDocument(el) {
+        try {
+            await deleteDoc(doc(db, "orders", el));
+            console.log("Document with ID was deleted: ", el);
+        }
+        catch (error){
+            console.error(error);
+        };
     };
 
     async deleteDocument(id) {
@@ -72,6 +82,20 @@ export default class Board extends Component {
             return false;
         }
     };
+
+    async editDocument(id) {
+        const docRef = doc(db, "orders", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            //console.log("Document data:", docSnap.data());
+            return docSnap.data();
+        } else {
+            // doc.data() will be undefined in this case
+            //console.log("No such document!");
+            return false;
+        }
+    }
 
     setListener = async () => {
         
