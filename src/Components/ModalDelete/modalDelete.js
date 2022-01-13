@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Board from "../Board/board";
+import CheIDForm from "./checkIdForm"
 
 import './modalDelete.css'
 
@@ -69,7 +70,11 @@ export default class ModalDelete extends Component {
                     Delete
                 </button>
             </div>
-            <Modal show={this.state.isOpen} 
+            <CheIDForm 
+                show={this.state.isOpen}
+                onHide={this.closeModal}
+                onClick={this.closeModal}/>
+            {/* <Modal show={this.state.isOpen} 
                     onHide={this.closeModal}
                     backdrop="static"
                     keyboard={false}>
@@ -98,7 +103,7 @@ export default class ModalDelete extends Component {
                     Close
                     </Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
         </>
         );
     }
