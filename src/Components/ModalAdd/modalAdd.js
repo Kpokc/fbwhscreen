@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { isDOMComponentElement } from "react-dom/cjs/react-dom-test-utils.production.min";
 import Board from "../Board/board";
 
 import './modalAdd.css';
@@ -11,12 +12,14 @@ export default class ModalAdd extends Component {
   state = {
     isChecked: false,
     isOpen: false,
+    validated: false
   };
 
   openModal = () => {
     this.setState({ 
       isChecked: false,
       isOpen: true,
+      validated: false
     });
   };
 
@@ -24,15 +27,33 @@ export default class ModalAdd extends Component {
     this.setState({
       isChecked: false,
       isOpen: false,
+      validated: false,
     });
   };
 
+  // Form submit hendlere
   handleSubmit = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+    const form = event.currentTarget;
+    // Validate the Form
+    if (form.checkValidity() === false) {
+
+      event.preventDefault();
+      event.stopPropagation();
+      this.setState({ 
+        validated: true,
+      });
+    } else {
+      this.setState({ 
+        validated: false
+      });
+
+      this.sendDataToDB(event);
+    }
+  };
+
+  sendDataToDB = (event) => {
 
     let date = new Date();
-
     // Prepare DB data
     let data = {
       jobid: event.target.jobId.value,
@@ -43,22 +64,17 @@ export default class ModalAdd extends Component {
       urgent: event.target.urgent.value,
       done: false,
     }
-
     // Add message to DB
-    this.board.addDocument(data)
+    this.board.addDocument(data);
 
     this.setState({ 
       isChecked: false,
       isOpen: false,
     });
 
+  }
 
-    // if (form.checkValidity() === false) {
-    //   event.preventDefault();
-    //   event.stopPropagation();
-    // }
-  };
-
+  // Check box handeler
   handleChange = (event) => {
     this.setState({
       isChecked: !this.state.isChecked
@@ -82,11 +98,11 @@ export default class ModalAdd extends Component {
             <Modal.Title>Add Message</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form noValidate onSubmit={this.handleSubmit}>
+            <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit} className="addform">
               <Form.Select aria-label="Default select example" 
-                            className="mb-3" 
-                            id="task">
-                <option>Select task:</option>
+                            className="mb-3"
+                            id="task"
+                            required>
                 <option value="pick">Pick</option>
                 <option value="receipt">Receipt</option>
                 <option value="collection">Collection</option>
@@ -97,12 +113,12 @@ export default class ModalAdd extends Component {
 
               <Form.Group className="mb-3" controlId="jobId">
                 <Form.Label>Job ID:</Form.Label>
-                <Form.Control type="text" placeholder="Enter Job ID"/>
+                <Form.Control type="text" placeholder="Enter Job ID" required/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="vendor">
                 <Form.Label>Vendor:</Form.Label>
-                <Form.Control type="text" placeholder="Enter Vendor" />
+                <Form.Control type="text" placeholder="Enter Vendor" required/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="urgent">
@@ -114,7 +130,7 @@ export default class ModalAdd extends Component {
 
               <Form.Group className="mb-3" controlId="message">
                 <Form.Label>Message:</Form.Label>
-                <Form.Control as="textarea" rows={3} placeholder="Enter Your Message"/>
+                <Form.Control as="textarea" rows={3} placeholder="Enter Your Message" required/>
               </Form.Group>
 
               <Modal.Footer>
