@@ -46,7 +46,7 @@ export default class ModalDelete extends Component {
 
             setTimeout(() => {
                 this.changeStateErrorBackFalse();
-            }, 5000)
+            }, 2000)
         }
     }
 
@@ -84,7 +84,11 @@ export default class ModalDelete extends Component {
                             onChange={this.handleChange}
                             placeholder="Enter ID"
                             />
-                    <p className={this.state.isError === true ? "d-block" : "d-none"}>Error!</p>
+                    <div className={this.state.isError === true ? "d-block" : "d-none"}>
+                        <i class="fal fa-exclamation-triangle fa-9x error-ic"></i>
+                        <p className={this.state.isError === true ? "d-block error-text mt-2" : "d-none"}>Error, incorrect ID!</p>
+                    </div>
+                    
                 <Modal.Footer>
                     <Button variant="secondary"
                             onClick={this.deleteCard}>
