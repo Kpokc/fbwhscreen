@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { isDOMComponentElement } from "react-dom/cjs/react-dom-test-utils.production.min";
 import Board from "../Board/board";
 
 import './modalAdd.css';
@@ -31,7 +30,7 @@ export default class ModalAdd extends Component {
     });
   };
 
-  // Form submit hendlere
+  // Form submit handler
   handleSubmit = (event) => {
     const form = event.currentTarget;
     // Validate the Form
@@ -74,7 +73,7 @@ export default class ModalAdd extends Component {
 
   }
 
-  // Check box handeler
+  // Check box handler
   handleChange = (event) => {
     this.setState({
       isChecked: !this.state.isChecked

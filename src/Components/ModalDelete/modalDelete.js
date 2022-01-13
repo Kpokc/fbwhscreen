@@ -10,9 +10,11 @@ export default class ModalDelete extends Component {
 
     state = {
         value: '',
-        isOpen: false
+        isOpen: false,
+        isError: false
     };
 
+    // input handler
     handleChange(event) {
         this.setState({value: event.target.value});
     }
@@ -31,12 +33,27 @@ export default class ModalDelete extends Component {
         });
     };
 
-    deleteCard = () => {
-        // this.board.deleteDocument(this.state.value);
-        this.board.deleteDocument(this.state.value)
-        this.setState({ 
+    // Try delete or return false if ID is incorrect
+    deleteCard = async () => {
+
+        const response = await this.board.deleteDocument(this.state.value);
+        
+        // Show error notification to user
+        if (!response) {
+            this.setState({ 
+                isError: true
+            });
+
+            setTimeout(() => {
+                this.changeStateErrorBackFalse();
+            }, 5000)
+        }
+    }
+
+    changeStateErrorBackFalse(){
+        this.setState({
             value: '',
-            isOpen: false
+            isError: false
         });
     }
 
@@ -62,11 +79,12 @@ export default class ModalDelete extends Component {
                 <Modal.Body>Enter card ID:</Modal.Body>
                     <input type="number" 
                             name="order-id" 
-                            className="delete-input"
+                            className={this.state.isError === false ? "d-block delete-input" : "d-none"}
                             value={this.state.value}
                             onChange={this.handleChange}
                             placeholder="Enter ID"
                             />
+                    <p className={this.state.isError === true ? "d-block" : "d-none"}>Error!</p>
                 <Modal.Footer>
                     <Button variant="secondary"
                             onClick={this.deleteCard}>

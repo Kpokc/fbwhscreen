@@ -69,7 +69,7 @@ export default class Board extends Component {
             };
         } else {
             // add some notification
-            alert(`Wrong ID!`)
+            return false;
         }
     };
 
