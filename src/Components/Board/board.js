@@ -1,20 +1,43 @@
 import React, { Component } from 'react'
 import { db } from '../Source/source'
+import Services from '../Source/services';
 import { collection, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 import BoardOrders from '../BoardOrders';
 
-
 export default class Board extends Component {
 
+    services = new Services();
+
     state = {
-        ordersList: [],
-        idList: []
+        ordersList: []
     };
 
     componentDidMount(){
         // Set listener
         this.setListener();
+        // Get DB orders
+        this.getOrders();
     };
+
+    setListener = async () => {
+        db.collection("orders")
+            .onSnapshot((querySnapshot) => {
+                let orders = [];
+                querySnapshot.forEach((doc) => {
+                    orders.push(doc.id);
+                });
+                this.getOrders();
+                //console.log("Current orders in DB: ", orders.join(", "));
+            });
+    };
+    
+    getOrders = async () => {
+        const orders = await this.services.getOrders();
+
+        this.setState({
+            ordersList: orders
+        });
+    }
 
     componentWillUnmount() {
         // UnSet listener
@@ -97,36 +120,34 @@ export default class Board extends Component {
         }
     }
 
-    setListener = async () => {
-        
-        db.collection("orders")
-            .onSnapshot((querySnapshot) => {
-                let orders = [];
-                querySnapshot.forEach((doc) => {
-                    orders.push(doc.id);
-                });
-                this.getOrders();
-                //console.log("Current orders in DB: ", orders.join(", "));
-            });
-    };
+    async checkDocumentId(id) {
+        const docRef = doc(db, "orders", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
-    getOrders = async () => {
-        const querySnapshot = await getDocs(collection(db, "orders"));
-        let orders = []
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            let combine = [...[doc.id], doc.data().done, 
-                            doc.data().jobid, doc.data().jobtext, 
-                            doc.data().jobtype, doc.data().time, 
-                            doc.data().urgent, doc.data().vendor];
-            orders.push(combine);
-        });
+    // getOrders = async () => {
+    //     const querySnapshot = await getDocs(collection(db, "orders"));
+    //     let orders = []
+    //     querySnapshot.forEach((doc) => {
+    //         // doc.data() is never undefined for query doc snapshots
+    //         let combine = [...[doc.id], doc.data().done, 
+    //                         doc.data().jobid, doc.data().jobtext, 
+    //                         doc.data().jobtype, doc.data().time, 
+    //                         doc.data().urgent, doc.data().vendor];
+    //         orders.push(combine);
+    //     });
 
-        this.setState({
-            ordersList: orders
-        });
-    };
+    //     this.setState({
+    //         ordersList: orders
+    //     });
+    // };
 
     render (){
 

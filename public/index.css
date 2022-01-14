@@ -3997,7 +3997,7 @@
  
  .dropdown-menu.show {
    display: block;
-   transform: translate(-123px, 40px)!important;
+   /* transform: translate(-123px, 40px)!important; */
  }
  
  .dropdown-header {
@@ -4717,6 +4717,8 @@
  
  .navbar-expand .navbar-nav .dropdown-menu {
    position: absolute;
+   right: 0;
+   top: 0;
  }
  
  .navbar-expand .navbar-nav .nav-link {
@@ -11558,3 +11560,9 @@
  .navbar-nav {
    margin: 0 auto;
  }
+
+ /* .dropdown-menu.show {
+   position: absolute!important;
+   right: 0!important;
+   top: 0!important;
+ } */

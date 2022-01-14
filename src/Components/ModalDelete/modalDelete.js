@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
 import Board from "../Board/board";
-import CheIDForm from "./checkIdForm"
+import CheckIDForm from "./checkIdForm"
 
 import './modalDelete.css'
 
@@ -12,7 +11,8 @@ export default class ModalDelete extends Component {
     state = {
         value: '',
         isOpen: false,
-        isError: false
+        isError: false,
+        modalName: 'Delete'
     };
 
     // input handler
@@ -34,14 +34,13 @@ export default class ModalDelete extends Component {
         });
     };
 
-    // Try delete or return false if ID is incorrect
-    deleteCard = async () => {
+    checkDocumentId = async () => {
 
-        const response = await this.board.deleteDocument(this.state.value);
-        
+        const response = await this.board.checkDocumentId(this.state.value);
         // Show error notification to user
-        if (!response) {
+        if (response === false) {
             this.setState({ 
+                value: '',
                 isError: true
             });
 
@@ -49,6 +48,19 @@ export default class ModalDelete extends Component {
                 this.changeStateErrorBackFalse();
             }, 2000)
         }
+
+        if (response === true) {
+            this.deleteCard();
+            this.setState({ 
+                value: '',
+                isOpen: false
+            });
+        }
+    }
+
+    // Try delete or return false if ID is incorrect
+    deleteCard = async () => {
+        this.board.deleteDocument(this.state.value);
     }
 
     changeStateErrorBackFalse(){
@@ -64,46 +76,20 @@ export default class ModalDelete extends Component {
 
         return (
         <>
-            <div
-            className="d-flex align-items-center justify-content-center">
+            <div className="d-flex align-items-center justify-content-center">
                 <button variant="primary" onClick={this.openModal}>
                     Delete
                 </button>
             </div>
-            <CheIDForm 
+            <CheckIDForm
+                modalName={this.state.modalName} 
                 show={this.state.isOpen}
                 onHide={this.closeModal}
-                onClick={this.closeModal}/>
-            {/* <Modal show={this.state.isOpen} 
-                    onHide={this.closeModal}
-                    backdrop="static"
-                    keyboard={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Delete Message</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Enter card ID:</Modal.Body>
-                    <input type="number" 
-                            name="order-id" 
-                            className={this.state.isError === false ? "d-block delete-input" : "d-none"}
-                            value={this.state.value}
-                            onChange={this.handleChange}
-                            placeholder="Enter ID"
-                            />
-                    <div className={this.state.isError === true ? "d-block" : "d-none"}>
-                        <i className="fal fa-exclamation-triangle fa-9x error-ic"></i>
-                        <p className={this.state.isError === true ? "d-block error-text mt-2" : "d-none"}>Error, incorrect ID!</p>
-                    </div>
-                    
-                <Modal.Footer>
-                    <Button variant="secondary"
-                            onClick={this.deleteCard}>
-                    Delete
-                    </Button>
-                    <Button variant="secondary" onClick={this.closeModal}>
-                    Close
-                    </Button>
-                </Modal.Footer>
-            </Modal> */}
+                closeModal={this.closeModal}
+                isError={this.state.isError}
+                value={this.state.value}
+                onChange={this.handleChange}
+                deleteCard={this.checkDocumentId} />
         </>
         );
     }
