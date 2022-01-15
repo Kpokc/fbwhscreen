@@ -5,9 +5,10 @@ class CheckIDForm extends Component {
 
     render() {
 
-        const {modalName, show, onHide, closeModal, isError, value, onChange, deleteCard, isSuccess} = this.props;
+        const {modalName, show, onHide, closeModal, isError, value, onChange, modalFunction, isSuccess} = this.props;
 
         return ( 
+            
             <Modal show={show} 
                     onHide={onHide}
                     backdrop="static"
@@ -30,18 +31,14 @@ class CheckIDForm extends Component {
                         {/* If success */}
                     <div className={isSuccess === true ? "d-block" : "d-none"}>
                         <i className="far fa-thumbs-up fa-9x awesome-ic"></i>
-                        <p className={isSuccess === true && modalName === 'Delete' ? "d-block error-text mt-2" : "d-none"}>Deleted!</p>
-                        <p className={isSuccess === true && modalName === 'Edit' ? "d-block error-text mt-2" : "d-none"}>Updated!</p>
+                        <p className={isSuccess === true && modalName === 'Delete' ? "d-block error-text mt-3" : "d-none"}>Deleted!</p>
+                        <p className={isSuccess === true && modalName === 'Edit' ? "d-block error-text mt-3" : "d-none"}>Updated!</p>
                     </div>
                         
                     <Modal.Footer>
-                        <Button variant="secondary"
-                                onClick={deleteCard}>
-                        {modalName}
-                        </Button>
-                        <Button variant="secondary" onClick={closeModal}>
-                        Close
-                        </Button>
+                        <Button variant="secondary" className={modalName === "Delete" ? "d-block" : "d-none"} onClick={modalFunction}>{modalName}</Button>
+                        <Button variant="secondary" className={modalName === "Edit" ? "d-block" : "d-none"} onClick={modalFunction}>Updated</Button>
+                        <Button variant="secondary" onClick={closeModal}>Close</Button>
                     </Modal.Footer>
             </Modal>
         );

@@ -1,15 +1,23 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
 import Board from "../Board/board";
+import CheckIDForm from "../CheckIdForm"
 
-export default class ModaUpdate extends Component {
+import { db } from '../Source/source';
+import { collection, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 
-  board = new Board();
+import './modalUpdate.css'
+
+export default class ModalUpdate extends Component {
+
+    board = new Board();
 
     state = {
         value: '',
         isOpen: false,
-        isError: false
+        isError: false,
+        isSuccess : false,
+        modalName: 'Edit',
+        modalReturnAdd: false
     };
 
     // input handler
@@ -31,30 +39,53 @@ export default class ModaUpdate extends Component {
         });
     };
 
-    // Try if ID is incorrect
-    editDocument = async () => {
-        
-        const response = await this.board.editDocument(this.state.value);
+    checkDocumentId = async () => {
 
-        console.log(response)
+        let response;
+        if (this.state.value.length > 0) {
+            this.response = await this.board.checkDocumentId(this.state.value);
+        }
+
         // Show error notification to user
-        if (!response) {
-          this.setState({ 
-              isError: true
-          });
+        if (this.response === false) {
+            this.setState({ 
+                value: '',
+                isError: true
+            });
 
-          setTimeout(() => {
-              this.changeStateErrorBackFalse();
-          }, 2000)
-      }
+            setTimeout(() => {
+                this.setState({
+                    value: '',
+                    isError: false
+                });
+            }, 2000)
+        };
+
+        // Show success notification to user
+        if (this.response === true) {
+            // this.updateCard();
+            this.setState({ 
+                value: '',
+                isSuccess: true,
+                modalReturnAdd: true
+            });
+
+            setTimeout(() => {
+                this.setState({
+                    value: '',
+                    isSuccess: false,
+                    isOpen: false,
+                    modalReturnAdd: false
+                });
+            }, 2000)
+        };
+
     }
 
-    changeStateErrorBackFalse(){
-        this.setState({
-            value: '',
-            isError: false
-        });
-    }
+    updateCard = async () => {
+       // db.collection("orders").doc(this.state.value).update({foo: "bar"});
+       await setDoc(doc(db, "orders", "396758"), {vendor: "Test"});
+    };
 
     render() {
 
@@ -62,41 +93,22 @@ export default class ModaUpdate extends Component {
 
         return (
         <>
-            <div
-            className="d-flex align-items-center justify-content-center">
+            <div className="d-flex align-items-center justify-content-center">
                 <button variant="primary" onClick={this.openModal}>
-                    Edit
+                    {this.state.modalName}
                 </button>
             </div>
-            <Modal show={this.state.isOpen} 
-                    onHide={this.closeModal}
-                    backdrop="static"
-                    keyboard={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Message</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Enter card ID:</Modal.Body>
-                    <input type="number" 
-                            name="order-id" 
-                            className={this.state.isError === false ? "d-block delete-input" : "d-none"}
-                            value={this.state.value}
-                            onChange={this.handleChange}
-                            placeholder="Enter ID"/>
-                    <div className={this.state.isError === true ? "d-block" : "d-none"}>
-                        <i className="fal fa-exclamation-triangle fa-9x error-ic"></i>
-                        <p className={this.state.isError === true ? "d-block error-text mt-2" : "d-none"}>Error, incorrect ID!</p>
-                    </div>
-                    
-                <Modal.Footer>
-                    <Button variant="secondary"
-                            onClick={this.editDocument}>
-                    Edit
-                    </Button>
-                    <Button variant="secondary" onClick={this.closeModal}>
-                    Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <CheckIDForm
+                modalName={this.state.modalName} 
+                show={this.state.isOpen}
+                onHide={this.closeModal}
+                closeModal={this.closeModal}
+                isError={this.state.isError}
+                value={this.state.value}
+                onChange={this.handleChange}
+                modalFunction={this.checkDocumentId} 
+                isSuccess={this.state.isSuccess}
+                modalReturnAdd={this.state.modalReturnAdd}/>
         </>
         );
     }

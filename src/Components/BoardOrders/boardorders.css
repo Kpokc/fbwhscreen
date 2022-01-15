@@ -1,6 +1,8 @@
 .columnHeader{
     text-align: center;
     border-bottom: 1px solid;
+    max-width: 38rem;
+    margin: 0 auto;
 }
 
 .smallFont {
@@ -35,6 +37,7 @@
 .card {
     min-width: 18rem;
     max-width: 38rem;
+    margin: 0 auto;
 }
 
 .pickId {

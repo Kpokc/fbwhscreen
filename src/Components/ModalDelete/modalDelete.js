@@ -37,7 +37,6 @@ export default class ModalDelete extends Component {
 
     checkDocumentId = async () => {
 
-        console.log(this.state.value, this.state.value.length)
         let response;
         if (this.state.value.length > 0) {
             this.response = await this.board.checkDocumentId(this.state.value);
@@ -101,7 +100,7 @@ export default class ModalDelete extends Component {
                 isError={this.state.isError}
                 value={this.state.value}
                 onChange={this.handleChange}
-                deleteCard={this.checkDocumentId} 
+                modalFunction={this.checkDocumentId} 
                 isSuccess={this.state.isSuccess}/>
         </>
         );
