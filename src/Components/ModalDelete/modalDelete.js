@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Board from "../Board/board";
-import CheckIDForm from "./checkIdForm"
+import CheckIDForm from "../CheckIdForm"
 
 import './modalDelete.css'
 
@@ -12,6 +12,7 @@ export default class ModalDelete extends Component {
         value: '',
         isOpen: false,
         isError: false,
+        isSuccess : false,
         modalName: 'Delete'
     };
 
@@ -36,38 +37,49 @@ export default class ModalDelete extends Component {
 
     checkDocumentId = async () => {
 
-        const response = await this.board.checkDocumentId(this.state.value);
+        console.log(this.state.value, this.state.value.length)
+        let response;
+        if (this.state.value.length > 0) {
+            this.response = await this.board.checkDocumentId(this.state.value);
+        }
+
         // Show error notification to user
-        if (response === false) {
+        if (this.response === false) {
             this.setState({ 
                 value: '',
                 isError: true
             });
 
             setTimeout(() => {
-                this.changeStateErrorBackFalse();
+                this.setState({
+                    value: '',
+                    isError: false
+                });
             }, 2000)
-        }
+        };
 
-        if (response === true) {
+        // Show success notification to user
+        if (this.response === true) {
             this.deleteCard();
             this.setState({ 
                 value: '',
-                isOpen: false
+                isSuccess: true
             });
-        }
+
+            setTimeout(() => {
+                this.setState({
+                    value: '',
+                    isSuccess: false,
+                    isOpen: false
+                });
+            }, 2000)
+        };
+
     }
 
     // Try delete or return false if ID is incorrect
     deleteCard = async () => {
         this.board.deleteDocument(this.state.value);
-    }
-
-    changeStateErrorBackFalse(){
-        this.setState({
-            value: '',
-            isError: false
-        });
     }
 
     render() {
@@ -78,7 +90,7 @@ export default class ModalDelete extends Component {
         <>
             <div className="d-flex align-items-center justify-content-center">
                 <button variant="primary" onClick={this.openModal}>
-                    Delete
+                    {this.state.modalName}
                 </button>
             </div>
             <CheckIDForm
@@ -89,7 +101,8 @@ export default class ModalDelete extends Component {
                 isError={this.state.isError}
                 value={this.state.value}
                 onChange={this.handleChange}
-                deleteCard={this.checkDocumentId} />
+                deleteCard={this.checkDocumentId} 
+                isSuccess={this.state.isSuccess}/>
         </>
         );
     }
