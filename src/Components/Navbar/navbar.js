@@ -19,27 +19,7 @@ export default class NavBar extends Component {
           { id: 4, button: 'Log Out', url: "#" },
           { id: 5, button: 'Radio', url: "#" },
         ]
-      };
-    
-    // Set interval for the time
-    componentDidMount() {
-        //this.updateTime();
-        //this.interval = setInterval(this.updateTime, 1000);
-        
-    }
-
-    // UnSet interval for the time
-    componentWillUnmount() {
-        //clearInterval(this.interval);
-    }
-
-    // Time
-    // updateTime = () => {
-    //     const today = new Date();
-    //     this.setState({
-    //         currentDateTime: today.toLocaleTimeString()
-    //     });
-    // };
+    };
 
     render() {
 
@@ -77,4 +57,4 @@ export default class NavBar extends Component {
           </div>
         );
     };
-}
+};

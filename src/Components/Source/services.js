@@ -8,7 +8,6 @@ export default class Services {
         const querySnapshot = await getDocs(collection(db, "orders"));
         let orders = []
         querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
             let combine = [...[doc.id], doc.data().done, 
                             doc.data().jobid, doc.data().jobtext, 
                             doc.data().jobtype, doc.data().time, 
@@ -17,9 +16,57 @@ export default class Services {
         });
 
         return orders;
-        // this.setState({
-        //     ordersList: orders
-        // });
+    };
+
+    // Check if message id is in DB
+    checkDocumentId = async (id) => {
+        const docRef = doc(db, "orders", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Delete message from DB
+    async deleteDocument(id) {
+        // Check if ID is in DB
+        const query = await this.checkDocumentId(id);
+
+        if (query) {
+            await deleteDoc(doc(db, "orders", id));
+            console.log(`Document with ID ${id} was deleted!`);
+            return true;
+        } else {
+            console.log(`Document with ID ${id} is incorrect!`);
+            return false;
+        }
+    };
+
+    async addDocument(data) {
+
+        let notAdded = true;
+        let id = (Math.floor(100000 + Math.random() * 900000)).toString();
+
+        if (notAdded) {
+            while (notAdded){
+                // Check if ID is in DB
+                const query = await this.checkDocumentId(id);
+                // If not in DB, then add
+                if (!query){
+                    await setDoc(doc(db, "orders", id), data);
+                    console.log(`Document with ID ${id} was added!`);
+                    notAdded = false;
+                };
+                id = (Math.floor(100000 + Math.random() * 900000)).toString();
+            };
+
+            return true;
+        } else {
+            return false;
+        };
     };
 
 }

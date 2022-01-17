@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Board from "../Board/board";
+import Services from "../Source/services";
 import CheckIDForm from "../CheckIdForm"
 
 import './modalDelete.css'
 
 export default class ModalDelete extends Component {
 
-    board = new Board();
+    services = new Services();
 
     state = {
         value: '',
@@ -15,11 +15,6 @@ export default class ModalDelete extends Component {
         isSuccess : false,
         modalName: 'Delete'
     };
-
-    // input handler
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
 
     openModal = () => {
         this.setState({ 
@@ -35,15 +30,17 @@ export default class ModalDelete extends Component {
         });
     };
 
-    checkDocumentId = async () => {
+    // input handler
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
 
-        let response;
-        if (this.state.value.length > 0) {
-            this.response = await this.board.checkDocumentId(this.state.value);
-        }
+    // Delete message from DB
+    deleteDocument = async () => {
 
-        // Show error notification to user
-        if (this.response === false) {
+        const response = await this.services.deleteDocument(this.state.value);
+
+        if (!response) {
             this.setState({ 
                 value: '',
                 isError: true
@@ -55,31 +52,21 @@ export default class ModalDelete extends Component {
                     isError: false
                 });
             }, 2000)
-        };
-
-        // Show success notification to user
-        if (this.response === true) {
-            this.deleteCard();
+        } else {
             this.setState({ 
                 value: '',
                 isSuccess: true
             });
-
+            
             setTimeout(() => {
                 this.setState({
                     value: '',
                     isSuccess: false,
                     isOpen: false
                 });
-            }, 2000)
+            }, 2000);
         };
-
-    }
-
-    // Try delete or return false if ID is incorrect
-    deleteCard = async () => {
-        this.board.deleteDocument(this.state.value);
-    }
+    };
 
     render() {
 
@@ -100,7 +87,7 @@ export default class ModalDelete extends Component {
                 isError={this.state.isError}
                 value={this.state.value}
                 onChange={this.handleChange}
-                modalFunction={this.checkDocumentId} 
+                modalFunction={this.deleteDocument} 
                 isSuccess={this.state.isSuccess}/>
         </>
         );

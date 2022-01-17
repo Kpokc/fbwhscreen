@@ -15,7 +15,7 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
         const sortedTitles = [... new Set(titleArray)];
 
         return sortedTitles;
-    }
+    };
 
     // Return column with an orders or null
     function checkIfOrderInList(titleList, jobTitle) {
@@ -98,6 +98,7 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
         );
 
     } else {
+        // Loader 
         document.body.classList.add('bodyLoader');
         return (
             <Loader />
