@@ -63,7 +63,7 @@ export default class ModalAdd extends Component {
       vendor: event.target.vendor.value,
       urgent: event.target.urgent.value,
       done: false,
-    }
+    };
 
     // Add message to DB
     const request = await this.services.addDocument(data);
@@ -92,14 +92,14 @@ export default class ModalAdd extends Component {
   };
 
   render() {
-
-      return (
-        <>
-          <div className="d-flex align-items-center justify-content-center">
-            <button variant="primary" onClick={this.openModal}>
-              Add
-            </button>
-          </div>
+    
+    return (
+      <>
+        <div className="d-flex align-items-center justify-content-center">
+          <button variant="primary" onClick={this.openModal}>
+            Add
+          </button>
+        </div>
         <AddForm modalName={this.state.modalName} 
                 show={this.state.isOpen}
                 onHide={this.closeModal}
@@ -108,9 +108,8 @@ export default class ModalAdd extends Component {
                 onSubmit={this.handleSubmit}
                 isChecked={this.state.isChecked}
                 onChange={this.handleChange}
-                isSuccess={this.state.isSuccess}
-                />
-        </>
-      );
+                isSuccess={this.state.isSuccess}/>
+      </>
+    );
   };
 };

@@ -24,7 +24,7 @@ export default class Board extends Component {
             // ...
             });
         unsubscribe();
-    }
+    };
 
     setListener = async () => {
         db.collection("orders")
@@ -44,11 +44,11 @@ export default class Board extends Component {
         this.setState({
             ordersList: orders
         });
-    }
+    };
 
     deleteCard = async (id) => {
         await this.services.deleteDocument(id);
-    }
+    };
 
     render (){
 

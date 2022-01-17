@@ -33,7 +33,7 @@ export default class ModalDelete extends Component {
     // input handler
     handleChange(event) {
         this.setState({value: event.target.value});
-    }
+    };
 
     // Delete message from DB
     deleteDocument = async () => {
@@ -91,5 +91,5 @@ export default class ModalDelete extends Component {
                 isSuccess={this.state.isSuccess}/>
         </>
         );
-    }
-}
+    };
+};

@@ -5,7 +5,7 @@ export default class CheckIDForm extends Component {
 
     render() {
 
-        const {modalName, show, onHide, closeModal, isError, value, onChange, modalFunction, isSuccess} = this.props;
+        const {modalName, show, onHide, closeModal, isError, value, onChange, modalFunction, isSuccess, returnAddForm} = this.props;
 
         return ( 
             

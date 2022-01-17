@@ -13,11 +13,11 @@ export default class NavBar extends Component {
 
     state = {
         buttons: [
-          { id: 1, button: <ModalAdd />, url: "#" },
-          { id: 2, button: <ModalDelete />, url: "#"},
-          { id: 3, button: <ModalUpdate />, url: "#" },
-          { id: 4, button: 'Log Out', url: "#" },
-          { id: 5, button: 'Radio', url: "#" },
+          { id: 1, button: <ModalAdd /> },
+          { id: 2, button: <ModalDelete /> },
+          { id: 3, button: <ModalUpdate /> },
+          { id: 4, button: 'Log Out' },
+          { id: 5, button: 'Radio' },
         ]
     };
 
@@ -30,8 +30,7 @@ export default class NavBar extends Component {
             return (
                 <li className="nav-item"
                     key={id}>
-                    <a className="nav-link" 
-                        href="#">{button}</a>
+                    <div className="nav-link">{button}</div>
                 </li>
             );
         });
