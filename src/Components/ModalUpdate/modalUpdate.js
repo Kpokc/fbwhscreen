@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AddForm from "../AddForm";
 import CheckIDForm from "../CheckIdForm"
 import Services from "../Source/services";
 
@@ -15,7 +14,9 @@ export default class ModalUpdate extends Component {
         isError: false,
         isSuccess : false,
         modalName: 'Edit',
-        returnAddForm: false
+        returnAddForm: false,
+        validated: false,
+        isChecked: false
     };
 
     openModal = () => {
@@ -28,7 +29,9 @@ export default class ModalUpdate extends Component {
     closeModal = () => {
         this.setState({ 
             value: '',
-            isOpen: false
+            isOpen: false,
+            returnAddForm: false,
+            validated: false
         });
     };
 
@@ -38,9 +41,8 @@ export default class ModalUpdate extends Component {
     };
 
     checkMessageID = async () => {
-        const response = await this.services.checkDocumentId(this.state.value);
 
-        console.log(response);
+        const response = await this.services.checkDocumentId(this.state.value);
 
         if (!response) {
             this.setState({ 
@@ -58,58 +60,70 @@ export default class ModalUpdate extends Component {
             this.setState({ 
                 value: '',
                 isOpen: false,
-                returnAddForm: true
+                returnAddForm: true,
             });
         };
     };
 
-    // checkDocumentId = async () => {
+    // Form submit handler
+    handleSubmit = async (event) => {
 
-    //     let response;
-    //     if (this.state.value.length > 0) {
-    //         this.response = await this.board.checkDocumentId(this.state.value);
-    //     }
+        event.preventDefault();
+        event.stopPropagation();
 
-    //     // Show error notification to user
-    //     if (this.response === false) {
-    //         this.setState({ 
-    //             value: '',
-    //             isError: true
-    //         });
+        const form = event.currentTarget;
+        // Validate the Form
+        if (form.checkValidity() === false) {
 
-    //         setTimeout(() => {
-    //             this.setState({
-    //                 value: '',
-    //                 isError: false
-    //             });
-    //         }, 2000)
-    //     };
+            this.setState({ 
+                validated: true,
+            });
+        
+        } else {
+        // Prepare DB data 
+        this.prepareDataForDB(event);
+        };
+    };
 
-    //     // Show success notification to user
-    //     if (this.response === true) {
-    //         // this.updateCard();
-    //         this.setState({ 
-    //             value: '',
-    //             isSuccess: true,
-    //             modalReturnAdd: true
-    //         });
+    prepareDataForDB = async (event) => {
 
-    //         setTimeout(() => {
-    //             this.setState({
-    //                 value: '',
-    //                 isSuccess: false,
-    //                 isOpen: false,
-    //                 modalReturnAdd: false
-    //             });
-    //         }, 2000)
-    //     };
+        // let date = new Date();
+        // // Prepare DB data
+        // let data = {
+        // jobid: event.target.jobId.value,
+        // jobtext: event.target.message.value,
+        // jobtype: event.target.task.value,
+        // time: date.toLocaleString('en-GB').toString(),
+        // vendor: event.target.vendor.value,
+        // urgent: event.target.urgent.value,
+        // done: false,
+        // };
 
-    // }
+        // Add message to DB
+        //const request = await this.services.addDocument(data);
 
-    // updateCard = async () => {
-    //    // db.collection("orders").doc(this.state.value).update({foo: "bar"});
-    //    await setDoc(doc(db, "orders", "396758"), {vendor: "Test"});
-    // };
+        // Add message to DB
+        this.setState({ 
+            validated: false,
+            isSuccess: true
+        });
+
+        // Set state back to normal
+        setTimeout(() => {
+        this.setState({
+            isChecked: false,
+            returnAddForm: false,
+            isSuccess: false
+        });
+        }, 2000);
+    };
+
+    // Check box handler
+    handleCheckBoxChange = (event) => {
+        this.setState({
+            isChecked: !this.state.isChecked
+        });
+    };
 
     render() {
 
@@ -132,7 +146,11 @@ export default class ModalUpdate extends Component {
                     onChange={this.handleChange}
                     modalFunction={this.checkMessageID} 
                     isSuccess={this.state.isSuccess}
-                    returnAddForm={this.state.returnAddForm}/>
+                    returnAddForm={this.state.returnAddForm}
+                    handleSubmit={this.handleSubmit}
+                    validated={this.state.validated}
+                    handleCheckBoxChange={this.handleCheckBoxChange}
+                    isChecked={this.state.isChecked}/>
             </>
         );
     };
