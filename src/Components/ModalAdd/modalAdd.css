@@ -1,3 +1,10 @@
 .toRigth {
     float: right;
 }
+
+.error-text {
+    text-align: center;
+    font-size: larger;
+    font-weight: 500;
+    padding-left: 12px;
+}

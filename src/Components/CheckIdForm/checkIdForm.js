@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-class CheckIDForm extends Component {
+export default class CheckIDForm extends Component {
 
     render() {
 
@@ -44,5 +44,3 @@ class CheckIDForm extends Component {
         );
     }
 }
-
-export default CheckIDForm;
