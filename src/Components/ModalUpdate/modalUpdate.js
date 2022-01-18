@@ -190,13 +190,17 @@ export default class ModalUpdate extends Component {
     render() {
 
         this.handleChange = this.handleChange.bind(this);
+
+        const {propsIdValue, propsVendor} = this.props;
         
+        //console.log(propsIdValue)
+
         return (
             <>
                 <div className="d-flex align-items-center justify-content-center">
-                    <button variant="primary" onClick={this.openModal}>
+                    <div variant="primary" onClick={this.openModal}>
                         {this.state.modalName}
-                    </button>
+                    </div>
                 </div>
                 <CheckIDForm
                     modalName={this.state.modalName} 
@@ -205,6 +209,8 @@ export default class ModalUpdate extends Component {
                     isError={this.state.isError}
                     // Update ID input field value
                     value={this.state.value}
+                    propsIdValue={propsIdValue}
+                    propsVendor={propsVendor}
                     // Update ID listener
                     onChange={this.handleChange}
                     // Check if ID is in DB

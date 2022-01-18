@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import UpdateForm from "../UpdateForm";
 
+import './checkIdForm.css'
+
 export default class CheckIDForm extends Component {
 
     render() {
@@ -10,7 +12,8 @@ export default class CheckIDForm extends Component {
             // Vars for select edit message form
             modalName, show, 
             closeModal, isError, value, 
-            onChange, modalFunction, 
+            onChange, modalFunction, propsIdValue,
+            propsVendor,
             // below vars for update/add form
             isSuccess, returnAddForm, validated, 
             handleSubmit, 
@@ -30,7 +33,7 @@ export default class CheckIDForm extends Component {
                     <Modal.Header closeButton>
                         <Modal.Title>{modalName} Message</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Enter card ID:</Modal.Body>
+                    <Modal.Body>Enter card ID: <span className="cardId">{propsIdValue ? `${propsIdValue} ` : ""}</span><span className="cardId">{propsVendor ? `Vendor: ${propsVendor}` : ""}</span></Modal.Body>
                         <input type="number" 
                                 name="order-id" 
                                 className={(isError === false) && (isSuccess === false) ? "d-block delete-input" : "d-none"}

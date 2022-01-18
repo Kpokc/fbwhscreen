@@ -89,8 +89,8 @@ export default class ModalAdd extends Component {
     setTimeout(() => {
       this.setState({
           isChecked: false,
+          isSuccess: false,
           isOpen: false,
-          isSuccess: false
       });
     }, 2000);
   };

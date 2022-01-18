@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "../Loader";
+import ModalUpdate from "../ModalUpdate"
 
 import './boardorders.css'
 
@@ -50,12 +51,12 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
                                         <div className="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <a className="dropdown-item" href="#">Done</a>
+                                                <div className="dropdown-item">Done</div>
                                                 {/* Edit Card */}
-                                                <a className="dropdown-item" href="#">Edit</a>
+                                                <div className="dropdown-item"><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></div>
                                                 {/* Delete Card */}
-                                                <a className="dropdown-item" href="#" 
-                                                    onClick={() => deleteCard(el[0])}>Delete</a>
+                                                <div className="dropdown-item"
+                                                    onClick={() => deleteCard(el[0])}>Delete</div>
                                             </div>
                                         </div>
                                     </div>
