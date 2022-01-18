@@ -3,6 +3,7 @@ import Services from "../Source/services";
 import AddForm from "../AddForm";
 
 import './modalAdd.css';
+import { serverTimestamp, Timestamp } from "firebase/firestore";
 
 export default class ModalAdd extends Component {
 
@@ -13,7 +14,8 @@ export default class ModalAdd extends Component {
     isOpen: false,
     validated: false,
     isSuccess: false,
-    modalName: "Add"
+    modalName: "Add",
+    data: []
   };
 
   openModal = () => {
@@ -51,6 +53,14 @@ export default class ModalAdd extends Component {
     };
   };
 
+  convertStringToBool(str){
+    if (str === "true"){
+      return true;
+    } else {
+      return false;
+    };
+  }
+
   prepareDataForDB = async (event) => {
 
     let date = new Date();
@@ -59,9 +69,10 @@ export default class ModalAdd extends Component {
       jobid: event.target.jobId.value,
       jobtext: event.target.message.value,
       jobtype: event.target.task.value,
-      time: date.toLocaleString('en-GB').toString(),
+      time: date.toLocaleString('en-GB'),
+      timestamp: serverTimestamp(),
       vendor: event.target.vendor.value,
-      urgent: event.target.urgent.value,
+      urgent: this.convertStringToBool(event.target.urgent.value),
       done: false,
     };
 
@@ -85,7 +96,7 @@ export default class ModalAdd extends Component {
   };
 
   // Check box handler
-  handleChange = (event) => {
+  handleCheckBoxChange = (event) => {
     this.setState({
       isChecked: !this.state.isChecked
     });
@@ -102,13 +113,13 @@ export default class ModalAdd extends Component {
         </div>
         <AddForm modalName={this.state.modalName} 
                 show={this.state.isOpen}
-                onHide={this.closeModal}
                 closeModal={this.closeModal}
                 validated={this.state.validated}
                 onSubmit={this.handleSubmit}
                 isChecked={this.state.isChecked}
-                onChange={this.handleChange}
-                isSuccess={this.state.isSuccess}/>
+                onChange={this.handleCheckBoxChange}
+                isSuccess={this.state.isSuccess}
+                data={this.state.data}/>
       </>
     );
   };

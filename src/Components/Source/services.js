@@ -1,5 +1,5 @@
 import { db } from '../Source/source'
-import { collection, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, setDoc, deleteDoc, orderBy, query } from "firebase/firestore";
 
 export default class Services {
 
@@ -10,8 +10,8 @@ export default class Services {
         querySnapshot.forEach((doc) => {
             let combine = [...[doc.id], doc.data().done, 
                             doc.data().jobid, doc.data().jobtext, 
-                            doc.data().jobtype, doc.data().time, 
-                            doc.data().urgent, doc.data().vendor];
+                            doc.data().jobtype, doc.data().time,
+                            doc.data().urgent, doc.data().vendor, doc.data().timestamp.seconds]; //.toDate().toString()
             orders.push(combine);
         });
 
@@ -79,6 +79,14 @@ export default class Services {
         } else {
             return false;
         };
+    };
+
+    async updateDocument(data, id) {
+
+        const response = await setDoc(doc(db, "orders", id), data);
+        console.log(`Document with ID ${id} was updated!`);
+
+        return true;
     };
 
 }

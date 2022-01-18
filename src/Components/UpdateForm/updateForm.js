@@ -1,13 +1,19 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-export default class AddForm extends Component {
-    
-    render (){
+export default class UpdateForm extends Component {
 
-        const { modalName, show, validated, onSubmit, closeModal, isSuccess, isChecked, onChange } = this.props;
+    render () {
+
+        const { modalName, show, validated, 
+            onSubmit, closeModal, isSuccess, 
+            jobtype, jobid, vendor, urgent, jobtext,
+            handleJobTypeChange, handleJobIdChange,
+            handleVendorChange, handleJobTextChange,
+            handleUrgentBoxChange} = this.props;
 
         return (
+
             <Modal show={show} 
                     onHide={closeModal}
                     backdrop="static"
@@ -22,6 +28,8 @@ export default class AddForm extends Component {
                 <Form.Select aria-label="Default select example" 
                                 className="mb-3"
                                 id="task"
+                                value={jobtype}
+                                onChange={handleJobTypeChange}
                                 required>
                     <option value="pick">Pick</option>
                     <option value="receipt">Receipt</option>
@@ -35,6 +43,8 @@ export default class AddForm extends Component {
                     <Form.Label>Job ID:</Form.Label>
                     <Form.Control type="number" 
                                 placeholder="Enter Job ID"
+                                value={jobid}
+                                onChange={handleJobIdChange}
                                 required 
                                 />
                 </Form.Group>
@@ -42,7 +52,9 @@ export default class AddForm extends Component {
                 <Form.Group className="mb-3" controlId="vendor">
                     <Form.Label>Vendor:</Form.Label>
                     <Form.Control type="text" 
-                                placeholder="Enter Vendor" 
+                                placeholder="Enter Vendor"
+                                value={vendor}
+                                onChange={handleVendorChange} 
                                 required
                                 />
                 </Form.Group>
@@ -50,8 +62,9 @@ export default class AddForm extends Component {
                 <Form.Group className="mb-3" controlId="urgent">
                     <Form.Check type="checkbox" 
                                 label="Urgent?"
-                                value={isChecked}
-                                onChange={onChange}
+                                value={urgent}
+                                onChange={handleUrgentBoxChange}
+                                checked={urgent}
                                 />
                 </Form.Group>
 
@@ -60,6 +73,8 @@ export default class AddForm extends Component {
                     <Form.Control as="textarea" 
                                 rows={3} 
                                 placeholder="Enter Your Message" 
+                                value={jobtext}
+                                onChange={handleJobTextChange}
                                 required
                                 />
                 </Form.Group>
@@ -86,5 +101,5 @@ export default class AddForm extends Component {
             
             </Modal>
         );
-    }
+    };
 }

@@ -9,15 +9,21 @@ export default class ModalUpdate extends Component {
     services = new Services();
 
     state = {
+        id: '',
+        jobtype:'',
+        jobtext:'',
+        vendor: '',
+        jobid: '',
         value: '',
+        time: '',
+        done: false,
         isOpen: false,
         isError: false,
         isSuccess : false,
         modalName: 'Edit',
         returnAddForm: false,
         validated: false,
-        isChecked: false,
-        data: []
+        isChecked: false
     };
 
     openModal = () => {
@@ -29,38 +35,40 @@ export default class ModalUpdate extends Component {
 
     closeModal = () => {
         this.setState({ 
+            id: '',
             value: '',
             isOpen: false,
             returnAddForm: false,
-            validated: false
+            validated: false,
+            isChecked: false
         });
     };
 
-    // input handler
+    // Get message ID input handler
     handleChange(event) {
         this.setState({value: event.target.value});
     };
 
+    // If message ID exists in DB?
     checkMessageID = async () => {
-
+        // Get response true or false
         const response = await this.services.checkDocumentId(this.state.value);
-
+        // Show error message, clear input field
         if (!response) {
             this.setState({ 
                 value: '',
                 isError: true
             });
-        
+            // Hide error message (2 sec)
             setTimeout(() => {
                 this.setState({
-                    value: '',
                     isError: false
                 });
             }, 2000)
         } else {
-
+            // Get message data
             this.getDocumentById(this.state.value);
-
+            // Clear value close modal window, return Update form
             this.setState({ 
                 value: '',
                 isOpen: false,
@@ -70,21 +78,19 @@ export default class ModalUpdate extends Component {
     };
 
     getDocumentById = async (id) => {
-
+        // Get full data
         const response = await this.services.getDocumentById(id);
-        // let combine = [];
-        // let combine = [... response.done, 
-        //     response.jobid, response.jobtext, 
-        //     response.jobtype, response.time, 
-        //     response.urgent, response.vendor];
-        // let order = [];
-
-        // order.push(combine);
-
-        // this.setState({
-        //     data: order
-        // });
-
+        // Set dada to state
+        this.setState({
+            id: id,
+            jobtype: response.jobtype,
+            jobtext: response.jobtext,
+            vendor: response.vendor,
+            jobid: response.jobid,
+            time: response.time,
+            done: response.done,
+            isChecked: response.urgent
+        });
     }
 
     // Form submit handler
@@ -96,43 +102,46 @@ export default class ModalUpdate extends Component {
         const form = event.currentTarget;
         // Validate the Form
         if (form.checkValidity() === false) {
-
             this.setState({ 
                 validated: true,
             });
-        
         } else {
         // Prepare DB data 
         this.prepareDataForDB(event);
         };
     };
 
+    convertStringToBool(str){
+        if (str === "true"){
+          return true;
+        } else {
+          return false;
+        };
+      }
+
     prepareDataForDB = async (event) => {
 
-        // let date = new Date();
-        // // Prepare DB data
-        // let data = {
-        // jobid: event.target.jobId.value,
-        // jobtext: event.target.message.value,
-        // jobtype: event.target.task.value,
-        // time: date.toLocaleString('en-GB').toString(),
-        // vendor: event.target.vendor.value,
-        // urgent: event.target.urgent.value,
-        // done: false,
-        // };
-
-        // Add message to DB
-        //const request = await this.services.addDocument(data);
-
-        // Add message to DB
+        // Prepare DB data
+        let data = {
+        jobid: this.state.jobid,
+        jobtext: this.state.jobtext,
+        jobtype: this.state.jobtype,
+        time: this.state.time,
+        vendor: this.state.vendor,
+        urgent: this.state.isChecked,
+        done: this.state.done,
+        };
+        //Update message to DB
+        const request = await this.services.updateDocument(data, this.state.id);
+        // Success message
         this.setState({ 
             validated: false,
-            isSuccess: true
+            isSuccess: request
         });
-
         // Set state back to normal
         setTimeout(() => {
         this.setState({
+            id: '',
             isChecked: false,
             returnAddForm: false,
             isSuccess: false
@@ -140,10 +149,33 @@ export default class ModalUpdate extends Component {
         }, 2000);
     };
 
-    // Check box handler
-    handleCheckBoxChange = (event) => {
+    handleJobTypeChange = (event) => {
+        this.setState({
+            jobtype: event.target.value
+        });
+    };
+
+    handleJobIdChange = (event) => {
+        this.setState({
+            jobid: event.target.value
+        });
+    };
+
+    handleVendorChange = (event) => {
+        this.setState({
+            vendor: event.target.value
+        });
+    };
+
+    handleUrgentBoxChange = (event) => {
         this.setState({
             isChecked: !this.state.isChecked
+        });
+    };
+
+    handleJobTextChange = (event) => {
+        this.setState({
+            jobtext: event.target.jobtext
         });
     };
 
@@ -161,7 +193,6 @@ export default class ModalUpdate extends Component {
                 <CheckIDForm
                     modalName={this.state.modalName} 
                     show={this.state.isOpen}
-                    onHide={this.closeModal}
                     closeModal={this.closeModal}
                     isError={this.state.isError}
                     // Update ID input field value
@@ -170,16 +201,23 @@ export default class ModalUpdate extends Component {
                     onChange={this.handleChange}
                     // Check if ID is in DB
                     modalFunction={this.checkMessageID}
+                    // Below Update form props
                     isSuccess={this.state.isSuccess}
                     // If true open AddForm
                     returnAddForm={this.state.returnAddForm}
                     handleSubmit={this.handleSubmit}
                     validated={this.state.validated}
-                    handleCheckBoxChange={this.handleCheckBoxChange}
-                    // Urgent check box
-                    isChecked={this.state.isChecked}
-                    // Requested message data
-                    data={this.state.data}/>
+                    jobtype={this.state.jobtype}
+                    handleJobTypeChange={this.handleJobTypeChange}
+                    jobid={this.state.jobid}
+                    handleJobIdChange={this.handleJobIdChange}
+                    vendor={this.state.vendor}
+                    handleVendorChange={this.handleVendorChange}
+                    urgent={this.state.isChecked}
+                    handleUrgentBoxChange={this.handleUrgentBoxChange}
+                    jobtext={this.state.jobtext}
+                    handleJobTextChange={this.handleJobTextChange}
+                    />
             </>
         );
     };

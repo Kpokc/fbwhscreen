@@ -1,23 +1,30 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
-import AddForm from "../AddForm";
+import UpdateForm from "../UpdateForm";
 
 export default class CheckIDForm extends Component {
 
     render() {
 
-        const {modalName, show, onHide, 
-                closeModal, isError, value, 
-                onChange, modalFunction, isSuccess, 
-                returnAddForm, validated, handleSubmit, 
-                handleCheckBoxChange, isChecked, data } = this.props;
+        const {
+            // Vars for select edit message form
+            modalName, show, 
+            closeModal, isError, value, 
+            onChange, modalFunction, 
+            // below vars for update/add form
+            isSuccess, returnAddForm, validated, 
+            handleSubmit, 
+            isChecked, jobtype, jobid, vendor,
+            urgent, jobtext, handleUrgentBoxChange,
+            handleJobTypeChange, handleJobIdChange,
+            handleVendorChange, handleJobTextChange} = this.props;
 
         if(!returnAddForm){
 
             return ( 
             
                 <Modal show={show} 
-                        onHide={onHide}
+                        onHide={closeModal}
                         backdrop="static"
                         keyboard={false}>
                     <Modal.Header closeButton>
@@ -54,16 +61,26 @@ export default class CheckIDForm extends Component {
         if (returnAddForm){
 
             return (
-                <AddForm modalName={modalName} 
+                <UpdateForm 
+                modalName={modalName} 
                 show={returnAddForm}
                 onHide={closeModal}
                 closeModal={closeModal}
                 validated={validated}
                 onSubmit={handleSubmit}
-                isChecked={isChecked}
-                onChange={handleCheckBoxChange}
+                //isChecked={isChecked}
                 isSuccess={isSuccess}
-                data={data}/>
+                jobtype={jobtype}
+                handleJobTypeChange={handleJobTypeChange}
+                jobid={jobid}
+                handleJobIdChange={handleJobIdChange}
+                vendor={vendor}
+                handleVendorChange={handleVendorChange}
+                urgent={urgent}
+                handleUrgentBoxChange={handleUrgentBoxChange}
+                jobtext={jobtext}
+                handleJobTextChange={handleJobTextChange}
+                />
             );
         }
 
