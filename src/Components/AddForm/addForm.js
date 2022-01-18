@@ -5,8 +5,10 @@ export default class AddForm extends Component {
     
     render (){
 
-        const {modalName, show, onHide, isChecked, validated, onChange, onSubmit, closeModal, returnAddForm, isSuccess} = this.props;
- 
+        const {modalName, show, onHide, isChecked, validated, onChange, onSubmit, closeModal, isSuccess, data} = this.props;
+        
+        //console.log(Object.keys(data))
+
         return (
             <Modal show={show} 
                     onHide={onHide}

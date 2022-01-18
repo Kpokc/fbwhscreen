@@ -16,7 +16,8 @@ export default class ModalUpdate extends Component {
         modalName: 'Edit',
         returnAddForm: false,
         validated: false,
-        isChecked: false
+        isChecked: false,
+        data: []
     };
 
     openModal = () => {
@@ -57,6 +58,9 @@ export default class ModalUpdate extends Component {
                 });
             }, 2000)
         } else {
+
+            this.getDocumentById(this.state.value);
+
             this.setState({ 
                 value: '',
                 isOpen: false,
@@ -64,6 +68,24 @@ export default class ModalUpdate extends Component {
             });
         };
     };
+
+    getDocumentById = async (id) => {
+
+        const response = await this.services.getDocumentById(id);
+        // let combine = [];
+        // let combine = [... response.done, 
+        //     response.jobid, response.jobtext, 
+        //     response.jobtype, response.time, 
+        //     response.urgent, response.vendor];
+        // let order = [];
+
+        // order.push(combine);
+
+        // this.setState({
+        //     data: order
+        // });
+
+    }
 
     // Form submit handler
     handleSubmit = async (event) => {
@@ -142,15 +164,22 @@ export default class ModalUpdate extends Component {
                     onHide={this.closeModal}
                     closeModal={this.closeModal}
                     isError={this.state.isError}
+                    // Update ID input field value
                     value={this.state.value}
+                    // Update ID listener
                     onChange={this.handleChange}
-                    modalFunction={this.checkMessageID} 
+                    // Check if ID is in DB
+                    modalFunction={this.checkMessageID}
                     isSuccess={this.state.isSuccess}
+                    // If true open AddForm
                     returnAddForm={this.state.returnAddForm}
                     handleSubmit={this.handleSubmit}
                     validated={this.state.validated}
                     handleCheckBoxChange={this.handleCheckBoxChange}
-                    isChecked={this.state.isChecked}/>
+                    // Urgent check box
+                    isChecked={this.state.isChecked}
+                    // Requested message data
+                    data={this.state.data}/>
             </>
         );
     };

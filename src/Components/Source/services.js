@@ -30,6 +30,18 @@ export default class Services {
         }
     }
 
+    // Check if message id is in DB
+    getDocumentById = async (id) => {
+        const docRef = doc(db, "orders", id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            return docSnap.data();
+        } else {
+            return false;
+        }
+    }
+
     // Delete message from DB
     async deleteDocument(id) {
         // Check if ID is in DB

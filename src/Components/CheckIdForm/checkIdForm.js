@@ -6,7 +6,11 @@ export default class CheckIDForm extends Component {
 
     render() {
 
-        const {modalName, show, onHide, closeModal, isError, value, onChange, modalFunction, isSuccess, returnAddForm, validated, handleSubmit, handleCheckBoxChange, isChecked } = this.props;
+        const {modalName, show, onHide, 
+                closeModal, isError, value, 
+                onChange, modalFunction, isSuccess, 
+                returnAddForm, validated, handleSubmit, 
+                handleCheckBoxChange, isChecked, data } = this.props;
 
         if(!returnAddForm){
 
@@ -58,7 +62,8 @@ export default class CheckIDForm extends Component {
                 onSubmit={handleSubmit}
                 isChecked={isChecked}
                 onChange={handleCheckBoxChange}
-                isSuccess={isSuccess}/>
+                isSuccess={isSuccess}
+                data={data}/>
             );
         }
 
