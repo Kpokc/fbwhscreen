@@ -11,11 +11,41 @@ export default class Services {
             let combine = [...[doc.id], doc.data().done, 
                             doc.data().jobid, doc.data().jobtext, 
                             doc.data().jobtype, doc.data().time,
-                            doc.data().urgent, doc.data().vendor, doc.data().timestamp.seconds]; //.toDate().toString()
+                            doc.data().urgent, doc.data().vendor, doc.data().timestamp.seconds];
             orders.push(combine);
         });
 
-        return orders;
+        console.log(orders)
+
+        return this.sortArrayByUrgent(this.sortArrayByTime(orders));
+    };
+
+    // Sort by urgent
+    sortArrayByUrgent(array){
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array.length - 1; j++) {
+                if (array[j][6] < array[j + 1][6]) {
+                    let temp = array[j + 1];
+                    array[j + 1] = array[j];
+                    array[j] = temp;
+                };
+            };
+        };
+        return array;
+    };
+
+    // Sort by time
+    sortArrayByTime(array){
+        for (let i = 0; i < array.length; i++) {
+            for (let j = 0; j < array.length - 1; j++) {
+                if (array[j][8] < array[j + 1][8]) {
+                    let temp = array[j + 1];
+                    array[j + 1] = array[j];
+                    array[j] = temp;
+                };
+            };
+        };
+        return array;
     };
 
     // Check if message id is in DB
