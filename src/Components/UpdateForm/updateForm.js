@@ -44,6 +44,7 @@ export default class UpdateForm extends Component {
                     <Form.Control type="number" 
                                 placeholder="Enter Job ID"
                                 value={jobid}
+                                maxLength={8}
                                 onChange={handleJobIdChange}
                                 required 
                                 />
@@ -54,6 +55,7 @@ export default class UpdateForm extends Component {
                     <Form.Control type="text" 
                                 placeholder="Enter Vendor"
                                 value={vendor}
+                                maxLength={30}
                                 onChange={handleVendorChange} 
                                 required
                                 />

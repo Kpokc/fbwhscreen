@@ -36,7 +36,8 @@ export default class CheckIDForm extends Component {
                                 className={(isError === false) && (isSuccess === false) ? "d-block delete-input" : "d-none"}
                                 value={value}
                                 onChange={onChange}
-                                placeholder="Enter ID"/>
+                                placeholder="Enter ID"
+                                maxLength={6}/>
                             {/* If  and Error */}
                         <div className={isError === true ? "d-block" : "d-none"}>
                             <i className="fal fa-exclamation-triangle fa-9x awesome-ic"></i>

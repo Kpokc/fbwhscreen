@@ -16,6 +16,7 @@ export default class ModalUpdate extends Component {
         jobid: '',
         value: '',
         time: '',
+        timestamp: null,
         done: false,
         isOpen: false,
         isError: false,
@@ -42,11 +43,6 @@ export default class ModalUpdate extends Component {
             validated: false,
             isChecked: false
         });
-    };
-
-    // Get message ID input handler
-    handleChange(event) {
-        this.setState({value: event.target.value});
     };
 
     // If message ID exists in DB?
@@ -89,6 +85,7 @@ export default class ModalUpdate extends Component {
             jobid: response.jobid,
             time: response.time,
             done: response.done,
+            timestamp: response.timestamp,
             isChecked: response.urgent
         });
     }
@@ -130,6 +127,7 @@ export default class ModalUpdate extends Component {
         vendor: this.state.vendor,
         urgent: this.state.isChecked,
         done: this.state.done,
+        timestamp: this.state.timestamp
         };
         //Update message to DB
         const request = await this.services.updateDocument(data, this.state.id);
@@ -149,6 +147,14 @@ export default class ModalUpdate extends Component {
         }, 2000);
     };
 
+    // Get message ID input handler
+    handleChange(event) {
+        const {value, maxLength} = event.target;
+        this.setState({
+            value: value.slice(0, maxLength)
+        });
+    };
+
     handleJobTypeChange = (event) => {
         this.setState({
             jobtype: event.target.value
@@ -156,14 +162,16 @@ export default class ModalUpdate extends Component {
     };
 
     handleJobIdChange = (event) => {
+        const {value, maxLength} = event.target;
         this.setState({
-            jobid: event.target.value
+            jobid: value.slice(0, maxLength)
         });
     };
 
     handleVendorChange = (event) => {
+        const {value, maxLength} = event.target;
         this.setState({
-            vendor: event.target.value
+            vendor: value.slice(0, maxLength)
         });
     };
 

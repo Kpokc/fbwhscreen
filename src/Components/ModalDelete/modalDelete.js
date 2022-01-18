@@ -32,7 +32,10 @@ export default class ModalDelete extends Component {
 
     // input handler
     handleChange(event) {
-        this.setState({value: event.target.value});
+        const {value, maxLength} = event.target;
+        this.setState({
+            value: value.slice(0, maxLength)
+        });
     };
 
     // Delete message from DB
@@ -55,7 +58,7 @@ export default class ModalDelete extends Component {
         } else {
             this.setState({ 
                 value: '',
-                isSuccess: true
+                isSuccess: response
             });
             
             setTimeout(() => {

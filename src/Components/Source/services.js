@@ -11,11 +11,9 @@ export default class Services {
             let combine = [...[doc.id], doc.data().done, 
                             doc.data().jobid, doc.data().jobtext, 
                             doc.data().jobtype, doc.data().time,
-                            doc.data().urgent, doc.data().vendor, doc.data().timestamp.seconds];
+                            doc.data().urgent, doc.data().vendor, doc.data().timestamp];
             orders.push(combine);
         });
-
-        console.log(orders)
 
         return this.sortArrayByUrgent(this.sortArrayByTime(orders));
     };
@@ -38,7 +36,7 @@ export default class Services {
     sortArrayByTime(array){
         for (let i = 0; i < array.length; i++) {
             for (let j = 0; j < array.length - 1; j++) {
-                if (array[j][8] < array[j + 1][8]) {
+                if (array[j][8] > array[j + 1][8]) {
                     let temp = array[j + 1];
                     array[j + 1] = array[j];
                     array[j] = temp;
@@ -119,4 +117,15 @@ export default class Services {
         return true;
     };
 
+    // Job ID handler
+    handleJobIdInput = (event) => {
+        const {value, maxLength} = event.target;
+        event.target.value = value.slice(0, maxLength);
+    };
+
+    // Job ID handler
+    handleVendorInput = (event) => {
+        const {value, maxLength} = event.target;
+        event.target.value = value.slice(0, maxLength);
+    };
 }

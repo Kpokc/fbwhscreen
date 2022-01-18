@@ -26,7 +26,7 @@ export default class NavBar extends Component {
         // List of buttons
         const buttons = this.state.buttons
         const btnList = buttons.map((btn) => {
-            const { id, button, url } = btn;
+            const { id, button } = btn;
             return (
                 <li className="nav-item"
                     key={id}>

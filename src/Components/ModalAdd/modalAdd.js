@@ -103,7 +103,7 @@ export default class ModalAdd extends Component {
   };
 
   render() {
-    
+
     return (
       <>
         <div className="d-flex align-items-center justify-content-center">
@@ -119,7 +119,9 @@ export default class ModalAdd extends Component {
                 isChecked={this.state.isChecked}
                 onChange={this.handleCheckBoxChange}
                 isSuccess={this.state.isSuccess}
-                data={this.state.data}/>
+                // Imported from services
+                handleJobIdInput={this.services.handleJobIdInput}
+                handleVendorInput={this.services.handleVendorInput}/>
       </>
     );
   };

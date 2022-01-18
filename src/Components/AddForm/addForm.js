@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
+import './addForm.css';
+
 export default class AddForm extends Component {
     
     render (){
 
-        const { modalName, show, validated, onSubmit, closeModal, isSuccess, isChecked, onChange } = this.props;
+        const { modalName, show, validated, onSubmit, closeModal, isSuccess, isChecked, onChange, handleJobIdInput, handleVendorInput } = this.props;
 
         return (
             <Modal show={show} 
@@ -19,6 +21,7 @@ export default class AddForm extends Component {
                 <Form noValidate validated={validated} 
                         onSubmit={onSubmit} 
                         className={isSuccess === false ? "d-block addform" : "d-none"}>
+                
                 <Form.Select aria-label="Default select example" 
                                 className="mb-3"
                                 id="task"
@@ -35,6 +38,8 @@ export default class AddForm extends Component {
                     <Form.Label>Job ID:</Form.Label>
                     <Form.Control type="number" 
                                 placeholder="Enter Job ID"
+                                maxLength="8"
+                                onChange={handleJobIdInput}
                                 required 
                                 />
                 </Form.Group>
@@ -42,7 +47,9 @@ export default class AddForm extends Component {
                 <Form.Group className="mb-3" controlId="vendor">
                     <Form.Label>Vendor:</Form.Label>
                     <Form.Control type="text" 
-                                placeholder="Enter Vendor" 
+                                placeholder="Enter Vendor"
+                                maxLength={30} 
+                                onChange={handleVendorInput}
                                 required
                                 />
                 </Form.Group>
