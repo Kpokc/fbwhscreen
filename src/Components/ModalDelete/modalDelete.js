@@ -78,7 +78,7 @@ export default class ModalDelete extends Component {
         return (
         <>
             <div className="d-flex align-items-center justify-content-center">
-                <button variant="primary" onClick={this.openModal}>
+                <button type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
                     {this.state.modalName}
                 </button>
             </div>

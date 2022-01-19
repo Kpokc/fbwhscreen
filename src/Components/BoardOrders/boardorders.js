@@ -1,6 +1,6 @@
 import React from "react";
 import Loader from "../Loader";
-import ModalUpdate from "../ModalUpdate"
+import ModalUpdate from "../ModalUpdate";
 
 import './boardorders.css'
 
@@ -36,27 +36,28 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
             })
         );
     };
-
+    
     // Return list of orders
     function getOrdersIntoColumn(ordersList, jobTitle) {
         return (
             ordersList.map((el) => {
                 if (el[4] === jobTitle) {
                     return (
-                        <div className="card border-primary mb-3 mt-3" key={el[0]}>
+                        <div className={el[6] === true ? "card border-danger text-white bg-danger mb-3 mt-3" : "card border-primary mb-3 mt-3"} key={el[0]}>
                             <div className="card-header toUpperCae">
                                 <span className="pickId">{el[4]}: {el[2]}</span>
                                 
                                     <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
                                         <div className="btn-group" role="group">
-                                            <button id="btnGroupDrop1" type="button" className="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                            <button id="btnGroupDrop1" type="button" className={el[6] === true ? "btn btn-danger dropdown-toggle" : "btn btn-primary dropdown-toggle"} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                <div className="dropdown-item">Done</div>
+                                                <button className="dropdown-item">Done</button>
                                                 {/* Edit Card */}
-                                                <div className="dropdown-item"><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></div>
+                                                <div className="dropdown-item"><a><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></a></div> 
+                                                {/* <ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/> */}
                                                 {/* Delete Card */}
-                                                <div className="dropdown-item"
-                                                    onClick={() => deleteCard(el[0])}>Delete</div>
+                                                <button className="dropdown-item"
+                                                    onClick={() => deleteCard(el[0])}>Delete</button>
                                             </div>
                                         </div>
                                     </div>
