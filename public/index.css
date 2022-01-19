@@ -3280,8 +3280,8 @@
  
  .btn-danger {
    color: #fff;
-   background-color: #d9534f;
-   border-color: #d9534f;
+   background-color: #dc605c!important;
+   /* border-color: #dc605c!important; */
  }
  
  .btn-danger:hover {
@@ -3294,7 +3294,7 @@
    color: #fff;
    background-color: #b84743;
    border-color: #ae423f;
-   box-shadow: 0 0 0 0.25rem rgba(223, 109, 105, 0.5);
+   box-shadow: 0 0 0 1px rgba(223, 109, 105, 0.5);
  }
  
  .btn-check:checked + .btn-danger,
