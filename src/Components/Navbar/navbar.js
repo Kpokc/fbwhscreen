@@ -28,9 +28,9 @@ export default class NavBar extends Component {
         const btnList = buttons.map((btn) => {
             const { id, button } = btn;
             return (
-                <li className="nav-item"
+                <li className="nav-item nav-padding"
                     key={id}>
-                    <div className="nav-link">{button}</div>
+                    <a className="nav-link">{button}</a>
                 </li>
             );
         });

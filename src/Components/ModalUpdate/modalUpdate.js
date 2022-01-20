@@ -60,7 +60,7 @@ export default class ModalUpdate extends Component {
                 this.setState({
                     isError: false
                 });
-            }, 2000)
+            }, 1000)
         } else {
             // Get message data
             this.getDocumentById(this.state.value);
@@ -144,7 +144,7 @@ export default class ModalUpdate extends Component {
             returnAddForm: false,
             isSuccess: false
         });
-        }, 2000);
+        }, 1000);
     };
 
     // Get message ID input handler
@@ -198,9 +198,9 @@ export default class ModalUpdate extends Component {
         return (
             <>
                 <div className="d-flex align-items-center justify-content-center">
-                    <button type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
+                    <div type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
                         {this.state.modalName}
-                    </button>
+                    </div>
                 </div>
                 <CheckIDForm
                     modalName={this.state.modalName} 

@@ -3428,8 +3428,9 @@
  }
  
  .btn-outline-secondary {
-   color: #4e5d6c;
+   color: #ebebeb;
    border-color: #4e5d6c;
+   width: 90px;
  }
  
  .btn-outline-secondary:hover {
@@ -3756,7 +3757,7 @@
    color: #ebebeb;
    text-align: left;
    list-style: none;
-   background-color: #4e5d6c;
+   background-color: #5b6977;;
    background-clip: padding-box;
    border: 1px solid rgb(76 155 232);
    border-radius: 0;

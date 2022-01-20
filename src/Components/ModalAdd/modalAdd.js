@@ -92,7 +92,7 @@ export default class ModalAdd extends Component {
           isSuccess: false,
           isOpen: false,
       });
-    }, 2000);
+    }, 1000);
   };
 
   // Check box handler
@@ -107,9 +107,9 @@ export default class ModalAdd extends Component {
     return (
       <>
         <div className="d-flex align-items-center justify-content-center">
-          <button type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
+          <div type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
             Add
-          </button>
+          </div>
         </div>
         <AddForm modalName={this.state.modalName} 
                 show={this.state.isOpen}

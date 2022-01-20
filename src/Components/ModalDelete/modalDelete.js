@@ -54,7 +54,7 @@ export default class ModalDelete extends Component {
                     value: '',
                     isError: false
                 });
-            }, 2000)
+            }, 1000)
         } else {
             this.setState({ 
                 value: '',
@@ -67,7 +67,7 @@ export default class ModalDelete extends Component {
                     isSuccess: false,
                     isOpen: false
                 });
-            }, 2000);
+            }, 1000);
         };
     };
 
@@ -75,12 +75,14 @@ export default class ModalDelete extends Component {
 
         this.handleChange = this.handleChange.bind(this);
 
+        const {propsIdValue, propsVendor} = this.props;
+
         return (
         <>
             <div className="d-flex align-items-center justify-content-center">
-                <button type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
+                <div type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
                     {this.state.modalName}
-                </button>
+                </div>
             </div>
             <CheckIDForm
                 modalName={this.state.modalName} 
@@ -91,7 +93,9 @@ export default class ModalDelete extends Component {
                 value={this.state.value}
                 onChange={this.handleChange}
                 modalFunction={this.deleteDocument} 
-                isSuccess={this.state.isSuccess}/>
+                isSuccess={this.state.isSuccess}
+                propsIdValue={propsIdValue}
+                propsVendor={propsVendor}/>
         </>
         );
     };
