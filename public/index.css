@@ -3435,8 +3435,9 @@
  
  .btn-outline-secondary:hover {
    color: #fff;
-   background-color: #4e5d6c;
-   border-color: #4e5d6c;
+   background-color: #488dd1;
+   border-color: #0f2537;
+   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 37%);
  }
  
  .btn-check:focus + .btn-outline-secondary, .btn-outline-secondary:focus {
@@ -3446,8 +3447,8 @@
  .btn-check:checked + .btn-outline-secondary,
  .btn-check:active + .btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary.active, .btn-outline-secondary.dropdown-toggle.show {
    color: #fff;
-   background-color: #4e5d6c;
-   border-color: #4e5d6c;
+   background-color: #488dd1;
+   border-color: #0f2537;
  }
  
  .btn-check:checked + .btn-outline-secondary:focus,

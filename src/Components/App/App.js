@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import NavBar from '../Navbar';
 import Board from '../Board/board';
 import LogIn from '../LogIn';
+import Logout from '../Loout';
 import { getAuth, signInWithEmailAndPassword, signOut  } from "firebase/auth";
 
 import './App.css';
@@ -29,7 +30,7 @@ function App() {
     });
   }
 
-  function logOut(){
+  function logOut() {
     const auth = getAuth();
     signOut(auth).then(() => {
       // Sign-out successful.
@@ -42,7 +43,11 @@ function App() {
 
   if(!user){
     return (
-      <button onClick={() => logIn()}>LogIn</button>
+      <div className="c">
+          <LogIn logIn={logIn}/>
+      </div>
+      
+      // <button onClick={() => logIn()}>LogIn</button>
     );
   };
 
@@ -50,16 +55,9 @@ function App() {
     return (
     
       <div className="container-fluid">
-        {/* <button >Log out</button> */}
         <NavBar />
         <Board />
-        <div className="navigation">
-          <a className="button" onClick={() => logOut()}>
-          <div><i className="fas fa-sign-out-alt fa-2x"></i></div>
-          <div className="logout">LOGOUT</div>
-          </a>
-        </div>
-
+        <Logout logOut={logOut}/>
       </div>
     );
   };
