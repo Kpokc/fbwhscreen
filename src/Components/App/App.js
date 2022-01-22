@@ -1,54 +1,68 @@
+import React, {useState} from 'react';
 import NavBar from '../Navbar';
 import Board from '../Board/board';
+import LogIn from '../LogIn';
+import { getAuth, signInWithEmailAndPassword, signOut  } from "firebase/auth";
+
 import './App.css';
 
-import firebase from "firebase/compat/app"
-import * as firebaseui from 'firebaseui'
-
-;
 
 function App() {
 
-  //var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth())
-  
-  var uiConfig = {
-    callbacks: {
-      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-        // User successfully signed in.
-        // Return type determines whether we continue the redirect automatically
-        // or whether we leave that to developer to handle.
-        console.log(authResult)
-        return true;
-      },
-      uiShown: function() {
-        // The widget is rendered.
-        // Hide the loader.
-        document.getElementById('loader').style.display = 'none';
-      }
-    },
-    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInFlow: 'popup',
-    signInSuccessUrl: '<url-to-redirect-to-on-success>',
-    signInOptions: [
-      // Leave the lines as is for the providers you want to offer your users.
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
+  const [user, setUser] = useState(sessionStorage.getItem("logged_user"));
 
-    ],
-    // Terms of service url.
-    tosUrl: '<your-tos-url>',
-    // Privacy policy url.
-    privacyPolicyUrl: '<your-privacy-policy-url>'
+  const auth = getAuth();
+
+  function logIn(){
+    signInWithEmailAndPassword(auth, "test1@test.com", 123456)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+        window.sessionStorage.setItem("logged_user", user.email)
+        setUser(sessionStorage.getItem("logged_user"));
+        //console.log(user.email)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+    });
+  }
+
+  function logOut(){
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      // Sign-out successful.
+      window.sessionStorage.removeItem("logged_user");
+      setUser(sessionStorage.getItem("logged_user"));
+    }).catch((error) => {
+      // An error happened.
+    });
   };
 
-  ui.start('#firebaseui-auth-container', uiConfig);
-  return (
+  if(!user){
+    return (
+      <button onClick={() => logIn()}>LogIn</button>
+    );
+  };
+
+  if (user){
+    return (
     
-    <div className="container-fluid">
-      <NavBar />
-      <Board />
-    </div>
-  );
-}
+      <div className="container-fluid">
+        {/* <button >Log out</button> */}
+        <NavBar />
+        <Board />
+        <div className="navigation">
+          <a className="button" onClick={() => logOut()}>
+          <div><i className="fas fa-sign-out-alt fa-2x"></i></div>
+          <div className="logout">LOGOUT</div>
+          </a>
+        </div>
+
+      </div>
+    );
+  };
+};
 
 export default App;

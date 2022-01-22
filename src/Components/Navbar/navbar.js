@@ -15,9 +15,7 @@ export default class NavBar extends Component {
         buttons: [
           { id: 1, button: <ModalAdd /> },
           { id: 2, button: <ModalDelete /> },
-          { id: 3, button: <ModalUpdate /> },
-          { id: 4, button: 'Log Out' },
-          { id: 5, button: 'Radio' },
+          { id: 3, button: <ModalUpdate /> }
         ]
     };
 

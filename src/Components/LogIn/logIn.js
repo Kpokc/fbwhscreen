@@ -1,26 +1,40 @@
 // import React, { Component } from "react";
-// import "firebase/compat/auth"
-// import "firebase/compat/firestore"
-// import * as firebaseui from 'firebaseui'
-// import 'firebaseui/dist/firebaseui.css'
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 
 // export default class LogIn extends Component {
     
 //     render(){
 
-//         ui.start('#firebaseui-auth-container', {
-//             signInOptions: [
-//               firebase.auth.EmailAuthProvider.PROVIDER_ID
-//             ],
-//             // Other config options...
-//           });
+//         const auth = getAuth();
+//         signInWithEmailAndPassword(auth, "test@test.com", "123456")
+//         .then((userCredential) => {
+//             // Signed in 
+//             const user = userCredential.user;
+//             // ...
+//             console.log(user.displayName)
+//         })
+//         .catch((error) => {
+//             const errorCode = error.code;
+//             const errorMessage = error.message;
+//         });
 
-//         return (
-//             <>
 
-//             </>
-//         )
+//         if (userName === ""){
+//             return (
+//                 <>
+//                     noooooooo
+//                     <h1>Welcome to My Awesome App</h1>
+//                     <div id="firebaseui-auth-container"></div>
+//                     <div id="loader">Loading...</div>
+//                 </>
+//             )
+//         }
+
+//         if (userName !== "") {
+//             return <>Hellllloooo</>
+//         }
+        
 //     }
 // }

@@ -1,0 +1,11 @@
+.navbar-brand {
+    position: absolute;
+}
+
+@media only screen and (max-width: 990px) {
+    .navbar-brand {
+        position: absolute;
+        right: 0;
+        top: 8px;
+    }
+}

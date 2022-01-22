@@ -16,6 +16,17 @@ export default class ModalDelete extends Component {
         modalName: 'Delete'
     };
 
+    // Prevents memory leak
+    componentWillUnmount() {
+        this.setState({
+            value: '',
+            isOpen: false,
+            isError: false,
+            isSuccess : false,
+            modalName: 'Delete'
+        });
+    };
+
     openModal = () => {
         this.setState({ 
             value: '',
@@ -39,9 +50,9 @@ export default class ModalDelete extends Component {
     };
 
     // Delete message from DB
-    deleteDocument = async () => {
+    deleteDocument = () => {
 
-        const response = await this.services.deleteDocument(this.state.value);
+        const response = this.services.deleteDocument(this.state.value);
 
         if (!response) {
             this.setState({ 
