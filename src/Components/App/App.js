@@ -43,7 +43,7 @@ function App() {
 
   if(!user){
     return (
-      <div className="c">
+      <div className="container-fluid">
           <LogIn logIn={logIn}/>
       </div>
       
