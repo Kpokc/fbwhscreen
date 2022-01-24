@@ -14,20 +14,25 @@ function App() {
 
   const auth = getAuth();
 
-  function logIn(){
-    signInWithEmailAndPassword(auth, "test1@test.com", 123456)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        // ...
-        window.sessionStorage.setItem("logged_user", user.email)
-        setUser(sessionStorage.getItem("logged_user"));
-        //console.log(user.email)
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    });
+  async function logIn(username, password){
+    
+    const result = signInWithEmailAndPassword(auth, username, password)
+                  .then((userCredential) => {
+                      // Signed in 
+                      const user = userCredential.user;
+                      // ...
+                      window.sessionStorage.setItem("logged_user", user.email)
+                      setUser(sessionStorage.getItem("logged_user"));
+                      //console.log(user.email)
+                      return true;
+                  })
+                  .catch((error) => {
+                      const errorCode = error.code;
+                      const errorMessage = error.message;
+                      return false;
+                  });
+
+    return await result;
   }
 
   function logOut() {
@@ -43,11 +48,11 @@ function App() {
 
   if(!user){
     return (
+
       <div className="container-fluid">
           <LogIn logIn={logIn}/>
       </div>
       
-      // <button onClick={() => logIn()}>LogIn</button>
     );
   };
 
@@ -59,6 +64,7 @@ function App() {
         <Board />
         <Logout logOut={logOut}/>
       </div>
+      
     );
   };
 };
