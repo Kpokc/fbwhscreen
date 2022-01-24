@@ -52,12 +52,25 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
                                         <div className="btn-group" role="group">
                                             <button id="btnGroupDrop1" type="button" className={el[6] === true ? "btn btn-danger dropdown-toggle" : "btn btn-primary dropdown-toggle"} data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                {/* Edit Card */}
-                                                <div className="dropdown-item"><a><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></a></div> 
-                                                {/* <ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/> */}
-                                                {/* Delete Card */}
-                                                {/* <div className="dropdown-item" onClick={() => deleteCard(el[0])}>Delete</div> */}
-                                                <div className="dropdown-item"><a><ModalDelete propsIdValue={el[0]} propsVendor={el[7]}/></a></div>
+
+                                                {/* Delete and update buttons for office admins */}
+                                                {!window.sessionStorage.getItem("logged_user").includes("ckearney") ? 
+                                                    <div>
+                                                        <div className="dropdown-item"><a><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></a></div>
+                                                        <div className="dropdown-item"><a><ModalDelete propsIdValue={el[0]} propsVendor={el[7]}/></a></div> 
+                                                    </div>
+                                                    :
+                                                    null
+                                                }
+                                                
+
+                                                {/* Delete button for the TV screen */}
+                                                {window.sessionStorage.getItem("logged_user").includes("ckearney") ? 
+                                                    <div type="button" className="btn btn-outline-secondary floor-button" onClick={() => deleteCard(el[0])}>Delete</div> 
+                                                    :
+                                                    null
+                                                }
+                                                
                                             </div>
                                         </div>
                                     </div>

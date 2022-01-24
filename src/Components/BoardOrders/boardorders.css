@@ -22,6 +22,10 @@
     line-height: 34px;
 }
 
+.floor-button {
+  margin: 0px 35px auto;
+}
+
 .marginLeft {
   margin-left: 10px!important;
 }

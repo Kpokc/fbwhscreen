@@ -51,9 +51,9 @@ export default class Board extends Component {
         });
     };
 
-    // deleteCard = async (id) => {
-    //     await this.services.deleteDocument(id);
-    // };
+    deleteCard = async (id) => {
+        await this.services.deleteDocument(id);
+    };
 
     render (){
 
