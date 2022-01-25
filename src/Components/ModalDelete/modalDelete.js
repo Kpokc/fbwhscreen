@@ -18,13 +18,9 @@ export default class ModalDelete extends Component {
 
     // Prevents memory leak
     componentWillUnmount() {
-        this.setState({
-            value: '',
-            isOpen: false,
-            isError: false,
-            isSuccess : false,
-            modalName: 'Delete'
-        });
+        this.setState = (state,callback)=>{
+            return;
+        };
     };
 
     openModal = () => {

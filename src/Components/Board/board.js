@@ -24,12 +24,8 @@ export default class Board extends Component {
             // ...
             });
         unsubscribe();
-
-        // Clear state as listener updates state each time
-        this.setState({
-            ordersList: []
-        });
     };
+
 
     setListener = async () => {
         db.collection("orders")
