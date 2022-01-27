@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ModalAdd from "../ModalAdd";
 import ModalDelete from "../ModalDelete";
 import ModalUpdate from "../ModalUpdate";
+import ModalRadio from "../ModalRadio";
 import Board from "../Board/board";
 import Time from "../Time";
 
@@ -15,7 +16,8 @@ export default class NavBar extends Component {
         buttons: [
           { id: 1, button: <ModalAdd /> },
           { id: 2, button: <ModalDelete /> },
-          { id: 3, button: <ModalUpdate /> }
+          { id: 3, button: <ModalUpdate /> },
+          { id: 4, button: <ModalRadio /> }
         ]
     };
 

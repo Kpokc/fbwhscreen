@@ -72,11 +72,11 @@ export default class AddForm extends Component {
                 </Form.Group>
 
                 <Modal.Footer>
+                    <Button variant="secondary" type="submit" className="btn btn-secondary toRigth mx-2">
+                        Submit
+                    </Button>
                     <Button variant="secondary" onClick={closeModal} className="btn btn-secondary toRigth">
                         Close
-                    </Button>
-                    <Button variant="secondary" type="submit" className="btn btn-secondary toRigth mx-2">
-                    Submit
                     </Button>
                 </Modal.Footer>
                 </Form>
