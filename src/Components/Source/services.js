@@ -1,5 +1,5 @@
 import { db } from '../Source/source'
-import { collection, getDocs, getDoc, doc, setDoc, deleteDoc, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, setDoc, deleteDoc } from "firebase/firestore";
 
 export default class Services {
 

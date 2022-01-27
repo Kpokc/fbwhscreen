@@ -1,22 +1,16 @@
-import firebase from "firebase/compat/app"
-//import "firebase/compat/auth"
-import "firebase/compat/firestore"
-//import * as firebaseui from 'firebaseui'
-//import 'firebaseui/dist/firebaseui.css'
+import firebase from "firebase/compat/app";
+import "firebase/compat/firestore";
 
 const firebaseApp = firebase.initializeApp({
-    apiKey: "AIzaSyAfk-7ATw8rFq2AZTWU5pmvf_cbVCBBcKs",
-    authDomain: "myfirsttest112.firebaseapp.com",
-    databaseURL: "https://myfirsttest112-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "myfirsttest112",
-    storageBucket: "myfirsttest112.appspot.com",
-    messagingSenderId: "508367851015",
-    appId: "1:508367851015:web:65bb412427b9eeb7daa4a2"
-})
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTHDOMAIN,
+    databaseURL: process.env.REACT_APP_DATABASEURL,
+    projectId: process.env.REACT_APP_PROJECTID,
+    storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGINGID,
+    appId: process.env.REACT_APP_APPID
+});
 
-const db = firebaseApp.firestore()
+const db = firebaseApp.firestore();
 
-//const auth = firebase.auth()
-
-
-export { db}
+export { db};
