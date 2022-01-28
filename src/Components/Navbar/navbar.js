@@ -30,7 +30,7 @@ export default class NavBar extends Component {
             return (
                 <li className="nav-item nav-padding"
                     key={id}>
-                    <a className="nav-link">{button}</a>
+                    <div className="nav-link">{button}</div>
                 </li>
             );
         });

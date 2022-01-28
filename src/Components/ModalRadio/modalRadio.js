@@ -14,16 +14,16 @@ export default class ModalRadio extends Component {
     openModal = () => {
         this.setState({ 
             value: '',
-            isOpen: true 
+            isOpen: !this.state.isOpen 
         });
     };
 
-    closeModal = () => {
-        this.setState({ 
-            value: '',
-            isOpen: false
-        });
-    };
+    // closeModal = () => {
+    //     this.setState({ 
+    //         value: '',
+    //         isOpen: false
+    //     });
+    // };
 
     hide = () => {
         this.setState({
@@ -32,6 +32,18 @@ export default class ModalRadio extends Component {
     }
 
     render() {
+
+        const divStyleSsow = {
+            zIndex: 100,
+            backgroundColor: "transparent",
+            opacity: 1,
+            textAlign: 'center' 
+        };
+        const divStyleHide = {
+            zIndex: -100,
+            backgroundColor: "black",
+            opacity: 0
+        }
 
         // className={!this.state.hideModal ? "d-block" : "d-none"}
 
@@ -42,7 +54,16 @@ export default class ModalRadio extends Component {
                         {this.state.modalName}
                     </div>
                 </div>
-                <Modal show={this.state.isOpen} 
+                <div className="container-fluid">
+                    <div className="radio mt-4" style={!this.state.isOpen ? divStyleHide : divStyleSsow}>
+                        {/* <div type="button" className="btn btn-outline-secondary" onClick={this.openModal}>
+                            Hide
+                        </div> */}
+                        <iframe src="https://irishradiolive.com/" id="radio-iframe"></iframe>
+                    </div>
+                </div>
+                
+                {/* <Modal show={this.state.isOpen} //this.state.isOpen
                         onHide={this.closeModal}
                         backdrop="static"
                         keyboard={false}
@@ -58,7 +79,7 @@ export default class ModalRadio extends Component {
                             <Button variant="secondary" onClick={this.hide}>Hide</Button>
                             <Button variant="secondary" onClick={this.closeModal}>Close</Button>
                         </Modal.Footer>
-                </Modal>
+                </Modal> */}
             </>
             
         );

@@ -14,7 +14,7 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
         ordersList.forEach((item) => {
             titleArray.includes(item[4], titleArray.push(item[4]));
         });
-        const sortedTitles = [... new Set(titleArray)];
+        const sortedTitles = [...new Set(titleArray)];
 
         return sortedTitles;
     };
@@ -56,8 +56,8 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
                                                 {/* Delete and update buttons for office admins */}
                                                 {!window.sessionStorage.getItem("logged_user").includes("ckearney") ? 
                                                     <div>
-                                                        <div className="dropdown-item"><a><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></a></div>
-                                                        <div className="dropdown-item"><a><ModalDelete propsIdValue={el[0]} propsVendor={el[7]}/></a></div> 
+                                                        <div className="dropdown-item"><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></div>
+                                                        <div className="dropdown-item"><ModalDelete propsIdValue={el[0]} propsVendor={el[7]}/></div> 
                                                     </div>
                                                     :
                                                     null
