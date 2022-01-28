@@ -54,18 +54,20 @@ export const BoardOrders = ({ordersList, deleteCard}) => {
                                             <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
 
                                                 {/* Delete and update buttons for office admins */}
-                                                {!window.sessionStorage.getItem("logged_user").includes("ckearney") ? 
+                                                {!window.sessionStorage.getItem("logged_user").includes("whfloor") ? 
                                                     <div>
                                                         <div className="dropdown-item"><ModalUpdate propsIdValue={el[0]} propsVendor={el[7]}/></div>
-                                                        <div className="dropdown-item"><ModalDelete propsIdValue={el[0]} propsVendor={el[7]}/></div> 
+                                                        {/* Delete with an ID */}
+                                                        {/* <div className="dropdown-item"><ModalDelete propsIdValue={el[0]} propsVendor={el[7]}/></div>  */}
+                                                        {/* Delete without an ID */}
+                                                        <div type="button" className="btn btn-outline-secondary floor-button" onClick={() => deleteCard(el[0])}>Delete</div>
                                                     </div>
                                                     :
                                                     null
                                                 }
-                                                
-
+                                            
                                                 {/* Delete button for the TV screen */}
-                                                {window.sessionStorage.getItem("logged_user").includes("ckearney") ? 
+                                                {window.sessionStorage.getItem("logged_user").includes("whfloor") ? 
                                                     <div type="button" className="btn btn-outline-secondary floor-button" onClick={() => deleteCard(el[0])}>Delete</div> 
                                                     :
                                                     null

@@ -124,9 +124,25 @@
 
 @media only screen and (max-width: 500px) {
     .background{
-        width: 325px;
+        width: 80%;
+        height: 70%;
     }
     form {
-        width: 365px;
+        width: 100%;
+    }
+    .login {
+        width: 92%;
+    }
+    .shape:first-child {
+        left: -55px;
+        top: -105px;
+        width: 150px;
+        height: 150px;
+    }
+    .shape:last-child {
+        right: -30px;
+        bottom: -80px;
+        height: 150px;
+        width: 150px;
     }
 }
