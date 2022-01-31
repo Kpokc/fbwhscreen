@@ -131,6 +131,7 @@ export default class ModalUpdate extends Component {
         };
         //Update message to DB
         const request = await this.services.updateDocument(data, this.state.id);
+        
         // Success message
         this.setState({ 
             validated: false,
@@ -183,7 +184,7 @@ export default class ModalUpdate extends Component {
 
     handleJobTextChange = (event) => {
         this.setState({
-            jobtext: event.target.jobtext
+            jobtext: event.target.value
         });
     };
 
@@ -192,8 +193,6 @@ export default class ModalUpdate extends Component {
         this.handleChange = this.handleChange.bind(this);
 
         const {propsIdValue, propsVendor} = this.props;
-        
-        //console.log(propsIdValue)
 
         return (
             <>
